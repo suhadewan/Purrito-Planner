@@ -8,11 +8,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#EDEDED"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="#EDEDED"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,6 +29,7 @@
                 android:text="EDIT"
                 android:textAlignment="center"
                 android:textColor="#353535"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <Button
@@ -42,27 +42,41 @@
                 android:text="ADD TO LIST"
                 android:textAlignment="center"
                 android:textColor="#353535"
+                android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/recipe_title_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/recipe_title_text"
-                    android:textAlignment="center"/>
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/recipe_tags_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:text="@string/recipe_tags_text"
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
 
                 <Space
                     android:layout_width="match_parent"
@@ -72,47 +86,41 @@
                     android:id="@+id/recipe_link_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/recipe_link_text"
                     android:autoLink="web"
-                    android:textColorLink="#729CE1"
                     android:linksClickable="true"
-                    android:textAlignment="center"/>
+                    android:text="@string/recipe_link_text"
+                    android:textAlignment="center"
+                    android:textColorLink="#729CE1"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <ImageView
-                android:padding="16dp"
                 android:id="@+id/imageView"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
-                android:scaleType="centerInside"
+                android:maxWidth="200dp"
+                android:maxHeight="150dp"
+                android:padding="16dp"
+                android:scaleType="fitCenter"
                 app:srcCompat="@drawable/potato_soup" />
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TAGS"
-            android:textAlignment="center"
-            android:textSize="24sp"
-            android:background="#D1D1D1"
-            android:textStyle="bold" />
 
         <GridView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:numColumns="2"
-            android:verticalSpacing="6dp"
+            android:columnWidth="20dp"
             android:horizontalSpacing="6dp"
-            android:columnWidth="20dp" />
+            android:numColumns="2"
+            android:verticalSpacing="6dp" />
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="30dp" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/ingredient_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#D1D1D1"
@@ -121,74 +129,88 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-
         <ListView
-            android:id="@+id/ingredientList"
-            android:layout_width="399dp"
-            android:layout_height="138dp"
+            android:id="@+id/ingredient_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:divider="null"
+            android:dividerHeight="1.0sp"
             android:entries="@array/ingredients"
             android:textAlignment="center" />
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="30dp" />
+            android:layout_height="15dp" />
+
+        <TextView
+            android:id="@+id/recipe_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#D1D1D1"
+            android:text="COOKING NOTES"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:layout_marginBottom="8dp"
+            android:textStyle="bold" />
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="103dp">
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
 
             <TextView
-                android:id="@+id/step1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/cooking_notes"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="1. Put bacon pieces in pan and cook until crispy. \n2. Take bacon out of pan, add chopped onion and garlic, cook both in pan. \n3. Add flour to ingredients in pan. \n4. Add potatoes, milk, cream, and chicken broth to pan" />
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/placeholder_recipe_text"
+                android:textSize="16sp" />
 
         </ScrollView>
 
         <LinearLayout
+            android:layout_marginTop="8dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fafafa"
             android:orientation="horizontal">
 
             <ImageButton
                 android:id="@+id/homeButton"
                 android:layout_width="70dp"
                 android:layout_height="72dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"
 
-                app:srcCompat="@drawable/catButton" />
+                app:srcCompat="@drawable/cat_button" />
 
             <ImageButton
                 android:id="@+id/planButton"
                 android:layout_width="70dp"
                 android:layout_height="72dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginStart="25dp"
-                app:srcCompat="@drawable/plannerButton" />
+                android:layout_marginTop="10dp"
+                app:srcCompat="@drawable/planner_button" />
 
             <ImageButton
                 android:id="@+id/mealButton"
                 android:layout_width="70dp"
                 android:layout_height="72dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginStart="25dp"
-                app:srcCompat="@drawable/mealButton" />
+                android:layout_marginTop="10dp"
+                app:srcCompat="@drawable/meal_button" />
 
             <ImageButton
                 android:id="@+id/shopButton"
                 android:layout_width="70dp"
                 android:layout_height="72dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginStart="25dp"
-                app:srcCompat="@drawable/shopButton" />
+                android:layout_marginTop="10dp"
+                app:srcCompat="@drawable/shop_button" />
 
         </LinearLayout>
-
-
 
 
     </LinearLayout>

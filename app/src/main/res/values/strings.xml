@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name">Purrito Planner</string>
-    <string name="recipe_title_text"><b>Recipe Title:</b>\nPotato Soup</string>
+    <string name="recipe_title_text">Potato Soup</string>
+    <string name="recipe_tags_text"><i>Lunch, dinner, soup,\nquick and easy</i></string>
     <string name="recipe_link_text"><a href="https://sugarspunrun.com/creamy-potato-soup-recipe/">View Recipe\non Internet</a></string>
+    <string name="placeholder_recipe_text">1. Put bacon pieces in pan and cook until crispy. \n2. Take bacon out of pan, add chopped onion and garlic, cook both in pan. \n3. Add flour to ingredients in pan. \n4. Add potatoes, milk, cream, and chicken broth to pan\n5. Bring to a boil and cook until potatoes are soft\n6. Reduce heat to a simmer and stir\n7. Add sour cream and (optional) bacon pieces, stir well\n8. Allow soup to simmer for 10 minutes\n9. Allow to cool, and serve</string>
     <string-array name="ingredients">
-        <item>Ingredient</item>
-        <item>Ingredient</item>
-        <item>Ingredient</item>
+        <item>&#8226; Potatoes (4, chopped)</item>
+        <item>&#8226; Cream (1 cup)</item>
+        <item>&#8226; Milk (2 cups)</item>
     </string-array>
 </resources>
