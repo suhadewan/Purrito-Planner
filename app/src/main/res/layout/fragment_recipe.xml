@@ -99,5 +99,97 @@
             android:textSize="24sp"
             android:background="#D1D1D1"
             android:textStyle="bold" />
+
+        <GridView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numColumns="2"
+            android:verticalSpacing="6dp"
+            android:horizontalSpacing="6dp"
+            android:columnWidth="20dp" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#D1D1D1"
+            android:text="INGREDIENTS"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+
+        <ListView
+            android:id="@+id/ingredientList"
+            android:layout_width="399dp"
+            android:layout_height="138dp"
+            android:layout_gravity="center"
+            android:divider="null"
+            android:entries="@array/ingredients"
+            android:textAlignment="center" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="103dp">
+
+            <TextView
+                android:id="@+id/step1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="1. Put bacon pieces in pan and cook until crispy. \n2. Take bacon out of pan, add chopped onion and garlic, cook both in pan. \n3. Add flour to ingredients in pan. \n4. Add potatoes, milk, cream, and chicken broth to pan" />
+
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/homeButton"
+                android:layout_width="70dp"
+                android:layout_height="72dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="25dp"
+
+                app:srcCompat="@drawable/catButton" />
+
+            <ImageButton
+                android:id="@+id/planButton"
+                android:layout_width="70dp"
+                android:layout_height="72dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="25dp"
+                app:srcCompat="@drawable/plannerButton" />
+
+            <ImageButton
+                android:id="@+id/mealButton"
+                android:layout_width="70dp"
+                android:layout_height="72dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="25dp"
+                app:srcCompat="@drawable/mealButton" />
+
+            <ImageButton
+                android:id="@+id/shopButton"
+                android:layout_width="70dp"
+                android:layout_height="72dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="25dp"
+                app:srcCompat="@drawable/shopButton" />
+
+        </LinearLayout>
+
+
+
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

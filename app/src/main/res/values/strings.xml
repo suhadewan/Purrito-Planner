@@ -2,4 +2,9 @@
     <string name="app_name">Purrito Planner</string>
     <string name="recipe_title_text"><b>Recipe Title:</b>\nPotato Soup</string>
     <string name="recipe_link_text"><a href="https://sugarspunrun.com/creamy-potato-soup-recipe/">View Recipe\non Internet</a></string>
+    <string-array name="ingredients">
+        <item>Ingredient</item>
+        <item>Ingredient</item>
+        <item>Ingredient</item>
+    </string-array>
 </resources>
