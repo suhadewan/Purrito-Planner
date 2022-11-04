@@ -107,18 +107,6 @@
                 app:srcCompat="@drawable/potato_soup" />
         </LinearLayout>
 
-        <GridView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:columnWidth="20dp"
-            android:horizontalSpacing="6dp"
-            android:numColumns="2"
-            android:verticalSpacing="6dp" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="30dp" />
-
         <TextView
             android:id="@+id/ingredient_text"
             android:layout_width="match_parent"
@@ -127,6 +115,7 @@
             android:text="INGREDIENTS"
             android:textAlignment="center"
             android:textSize="24sp"
+            android:layout_marginTop="30dp"
             android:textStyle="bold" />
 
         <ListView
