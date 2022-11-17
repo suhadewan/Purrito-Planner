@@ -117,7 +117,7 @@ class ChildRecyclerViewAdapter(private val myRecipes: ArrayList<RecipeItem>, pri
             recipeIngredients.text = recipe.ingredients
             recipeImage.setImageResource(R.drawable.potato_soup)
             view.setOnClickListener {
-                view.findNavController().navigate(R.id.action_recipeListFragment_to_newRecipeFragment)
+                view.findNavController().navigate(R.id.action_recipeListFragment_to_viewRecipeFragment)
             }
 
         }
