@@ -26,7 +26,7 @@
                 android:layout_weight="1"
                 android:text="Monday"
                 android:textAppearance="?attr/textAppearanceBody2"
-                android:textColor="@color/black"/>
+                android:textColor="#000000"/>
 
             <TextView
                 android:id="@+id/home_card_date"
@@ -51,7 +51,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_weight="1"
                 android:text="Breakfast: "
-                android:textColor="@color/black"
+                android:textColor="#000000"
                 android:textAlignment="textStart"
                 android:textSize="14sp" />
 
@@ -62,7 +62,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_weight="1"
                 android:text="Lunch: "
-                android:textColor="@color/black"
+                android:textColor="#000000"
                 android:textAlignment="textStart"
                 android:textSize="14sp" />
 
@@ -72,7 +72,7 @@
                 android:layout_height="0dp"
                 android:layout_marginStart="20dp"
                 android:layout_weight="1"
-                android:textColor="@color/black"
+                android:textColor="#000000"
                 android:text="Dinner: "
                 android:textAlignment="textStart"
                 android:textSize="14sp" />
@@ -91,7 +91,7 @@
                 android:layout_weight="1"
                 android:text="avocado and egg toast"
                 android:textAlignment="textStart"
-                android:textColor="@color/material_dynamic_primary50"
+                android:textColor="#0080AE"
                 android:textSize="14sp" />
 
             <TextView
@@ -101,7 +101,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:text="chickpea salad"
-                android:textColor="@android:color/holo_green_light"
+                android:textColor="#96C800"
                 android:textAlignment="textStart"
                 android:textSize="14sp" />
 
@@ -111,7 +111,7 @@
                 android:layout_height="0dp"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:textColor="@android:color/holo_red_light"
+                android:textColor="#FB4242"
                 android:text="roasted chicken and veges"
                 android:textAlignment="textStart"
                 android:textSize="14sp" />
