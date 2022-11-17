@@ -4,7 +4,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        app:cardBackgroundColor="@color/material_dynamic_neutral60">
+        app:cardBackgroundColor="#EDEDED">
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -12,7 +12,7 @@
             android:id="@+id/card_layout">
 
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/ingredient_check_box"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Grocery Item"
