@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeScreenFragment">
+
+    <fragment
+        android:id="@+id/homeScreenFragment"
+        android:name="com.example.purritoplanner.HomeScreenFragment"
+        android:label="fragment_home_screen"
+        tools:layout="@layout/fragment_home_screen" />
+
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="com.example.purritoplanner.CalendarFragment"
+        android:label="fragment_calendar"
+        tools:layout="@layout/fragment_calendar" />
+
+    <fragment
+        android:id="@+id/chooseHat"
+        android:name="com.example.purritoplanner.ChooseHatFragment"
+        android:label="fragment_choose_hat"
+        tools:layout="@layout/fragment_choose_hat" />
+
+    <fragment
+        android:id="@+id/editShoppingList"
+        android:name="com.example.purritoplanner.EditShoppingListFragment"
+        android:label="fragment_edit_shopping_list"
+        tools:layout="@layout/fragment_edit_shopping_list" />
+
+    <fragment
+        android:id="@+id/newGroceryItem"
+        android:name="com.example.purritoplanner.NewGroceryItemFragment"
+        android:label="fragment_new_grocery_item"
+        tools:layout="@layout/fragment_new_grocery_item" />
+
+    <fragment
+        android:id="@+id/newRecipeFragment"
+        android:name="com.example.purritoplanner.NewRecipeFragment"
+        android:label="fragment_new_recipe"
+        tools:layout="@layout/fragment_new_recipe" />
+
+    <fragment
+        android:id="@+id/settings"
+        android:name="com.example.purritoplanner.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/shoppingList"
+        android:name="com.example.purritoplanner.ShoppingListFragment"
+        android:label="fragment_shopping_list"
+        tools:layout="@layout/fragment_shopping_list" />
+
+    <fragment
+        android:id="@+id/viewRecipe"
+        android:name="com.example.purritoplanner.ViewRecipeFragment"
+        android:label="fragment_view_recipe"
+        tools:layout="@layout/fragment_view_recipe" />
+
+</navigation>
