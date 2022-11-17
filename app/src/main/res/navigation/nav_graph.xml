@@ -18,19 +18,19 @@
         tools:layout="@layout/fragment_calendar" />
 
     <fragment
-        android:id="@+id/chooseHat"
+        android:id="@+id/chooseHatFragment"
         android:name="com.example.purritoplanner.ChooseHatFragment"
         android:label="fragment_choose_hat"
         tools:layout="@layout/fragment_choose_hat" />
 
     <fragment
-        android:id="@+id/editShoppingList"
+        android:id="@+id/editShoppingListFragment"
         android:name="com.example.purritoplanner.EditShoppingListFragment"
         android:label="fragment_edit_shopping_list"
         tools:layout="@layout/fragment_edit_shopping_list" />
 
     <fragment
-        android:id="@+id/newGroceryItem"
+        android:id="@+id/newGroceryItemFragment"
         android:name="com.example.purritoplanner.NewGroceryItemFragment"
         android:label="fragment_new_grocery_item"
         tools:layout="@layout/fragment_new_grocery_item" />
@@ -42,19 +42,19 @@
         tools:layout="@layout/fragment_new_recipe" />
 
     <fragment
-        android:id="@+id/settings"
+        android:id="@+id/settingsFragment"
         android:name="com.example.purritoplanner.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
 
     <fragment
-        android:id="@+id/shoppingList"
+        android:id="@+id/shoppingListFragment"
         android:name="com.example.purritoplanner.ShoppingListFragment"
         android:label="fragment_shopping_list"
         tools:layout="@layout/fragment_shopping_list" />
 
     <fragment
-        android:id="@+id/viewRecipe"
+        android:id="@+id/viewRecipeFragment"
         android:name="com.example.purritoplanner.ViewRecipeFragment"
         android:label="fragment_view_recipe"
         tools:layout="@layout/fragment_view_recipe" />
