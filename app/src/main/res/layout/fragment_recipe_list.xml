@@ -16,7 +16,7 @@
             android:id="@+id/Add_Recipe_Button"
             android:layout_width="75dp"
             android:layout_height="75dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:src="@android:drawable/ic_menu_add"
             app:layout_constraintEnd_toStartOf="@+id/Search_recipes"
             app:layout_constraintHorizontal_bias="0.5"
@@ -24,10 +24,10 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/Settings_Button"
+            android:id="@+id/Recipe_Settings_Button"
             android:layout_width="75dp"
             android:layout_height="75dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:src="@drawable/settings_gear"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -42,7 +42,7 @@
             android:paddingRight="20dp"
             android:iconifiedByDefault="false"
             android:queryHint="Search Saved Recipes"
-            app:layout_constraintEnd_toStartOf="@+id/Settings_Button"
+            app:layout_constraintEnd_toStartOf="@+id/Recipe_Settings_Button"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/Add_Recipe_Button"
             app:layout_constraintTop_toTopOf="parent" />
@@ -50,9 +50,10 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recipes"
             android:layout_width="409dp"
-            android:layout_height="638dp"
-            android:scrollbars="vertical"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
             android:paddingTop="25dp"
+            android:scrollbars="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

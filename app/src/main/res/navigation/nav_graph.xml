@@ -59,7 +59,7 @@
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.purritoplanner.SettingsFragment"
+        android:name="com.example.purritoplanner.SettingFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
 
@@ -83,6 +83,21 @@
         <action
             android:id="@+id/action_viewRecipeFragment_to_newRecipeFragment"
             app:destination="@id/newRecipeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recipeListFragment"
+        android:name="com.example.purritoplanner.RecipeListFragment"
+        android:label="fragment_recipe_list"
+        tools:layout="@layout/fragment_recipe_list" >
+        <action
+            android:id="@+id/action_recipeListFragment_to_newRecipeFragment"
+            app:destination="@id/newRecipeFragment" />
+        <action
+            android:id="@+id/action_recipeListFragment_to_viewRecipeFragment"
+            app:destination="@id/viewRecipeFragment" />
+        <action
+            android:id="@+id/action_recipeListFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
 
 </navigation>

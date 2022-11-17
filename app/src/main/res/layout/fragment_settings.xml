@@ -17,7 +17,7 @@
             android:layout_width="146dp"
             android:layout_height="22dp"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="227dp"
+            android:layout_marginBottom="200dp"
             android:text="Weekly Objectives:"
             app:layout_constraintBottom_toTopOf="@+id/divider4"
             app:layout_constraintEnd_toEndOf="parent"
@@ -249,7 +249,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.741" />
+            app:layout_constraintVertical_bias="0.821" />
 
         <View
             android:id="@+id/divider5"
@@ -260,7 +260,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.557" />
+            app:layout_constraintVertical_bias="0.582" />
 
         <View
             android:id="@+id/divider6"

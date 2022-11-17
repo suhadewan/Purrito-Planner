@@ -36,8 +36,8 @@
 
         <ImageView
             android:id="@+id/Top_Hat_Image"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:layout_marginTop="30dp"
             android:src="@drawable/top_hat_thumbnail"
             app:layout_constraintEnd_toStartOf="@+id/Pirate_Hat_Image"
@@ -47,8 +47,8 @@
 
         <ImageView
             android:id="@+id/Pirate_Hat_Image"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:layout_marginTop="30dp"
             android:src="@drawable/pirate_hat_thumbnail"
             app:layout_constraintEnd_toEndOf="parent"
@@ -58,8 +58,8 @@
 
         <ImageView
             android:id="@+id/Jester_Cap_Image"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:layout_marginTop="20dp"
             android:src="@drawable/jester_hat_thumbnail"
             app:layout_constraintEnd_toStartOf="@+id/Tiara_Image"
@@ -69,8 +69,8 @@
 
         <ImageView
             android:id="@+id/Tiara_Image"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:layout_marginTop="20dp"
             android:src="@drawable/tiara_origin_thumbnail"
             app:layout_constraintEnd_toEndOf="parent"
@@ -80,8 +80,8 @@
 
         <ImageView
             android:id="@+id/Bow_Image"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:layout_marginTop="32dp"
             android:src="@drawable/bow_thumbnail"
             app:layout_constraintEnd_toStartOf="@+id/Nothing_Image"
@@ -91,8 +91,8 @@
 
         <ImageView
             android:id="@+id/Nothing_Image"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:layout_marginTop="32dp"
             android:src="@drawable/nothing"
             app:layout_constraintEnd_toEndOf="parent"
@@ -159,7 +159,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="136dp"
+            android:layout_marginTop="116dp"
             android:src="@drawable/lock"
             app:layout_constraintStart_toEndOf="@+id/Pirate_Hat_Text"
             app:layout_constraintTop_toTopOf="@+id/Pirate_Hat_Image" />
@@ -169,7 +169,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="136dp"
+            android:layout_marginTop="116dp"
             android:src="@drawable/lock"
             app:layout_constraintStart_toEndOf="@+id/Jester_Cap_Text"
             app:layout_constraintTop_toTopOf="@+id/Jester_Cap_Image" />
@@ -179,7 +179,7 @@
             android:layout_width="39dp"
             android:layout_height="37dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="136dp"
+            android:layout_marginTop="116dp"
             android:src="@drawable/lock"
             app:layout_constraintStart_toEndOf="@+id/Tiara_Text"
             app:layout_constraintTop_toTopOf="@+id/Tiara_Image" />
@@ -189,7 +189,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="136dp"
+            android:layout_marginTop="116dp"
             android:src="@drawable/lock"
             app:layout_constraintStart_toEndOf="@+id/Bow_Text"
             app:layout_constraintTop_toTopOf="@+id/Bow_Image" />

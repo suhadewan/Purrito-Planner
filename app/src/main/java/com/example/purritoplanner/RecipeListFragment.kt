@@ -5,8 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -14,6 +16,8 @@ class RecipeListFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private val recipeHeaders = ArrayList<String>()
+    private lateinit var addRecipeButton: ImageView
+    private lateinit var settingsButton: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +33,16 @@ class RecipeListFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         viewAdapter = RecyclerViewAdapter(recipeHeaders, activity as MainActivity)
         recyclerView.adapter = viewAdapter
+        addRecipeButton = view.findViewById(R.id.Add_Recipe_Button)
+        settingsButton = view.findViewById(R.id.Recipe_Settings_Button)
+
+        addRecipeButton.setOnClickListener {
+            view.findNavController().navigate(R.id.action_recipeListFragment_to_newRecipeFragment)
+        }
+
+        settingsButton.setOnClickListener {
+            view.findNavController().navigate(R.id.settingsFragment)
+        }
 
         return view
     }
@@ -72,7 +86,7 @@ class RecyclerViewAdapter(private val myDataset: ArrayList<String>, private val 
             recipeHeader.text = recipeHeaders
             val recipeRecyclerView = view.findViewById<RecyclerView>(R.id.recipes)
             val recipes = ArrayList<RecipeItem>()
-            recipes.add(RecipeItem("Soup", "Carrots, Mushroom, Cream, Mushroom"))
+            recipes.add(RecipeItem("Soup", "Carrots, Mushroom, Cream, Meat"))
             val childRecipeAdapter = ChildRecyclerViewAdapter(recipes, activity as MainActivity)
             recipeRecyclerView.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
             recipeRecyclerView.adapter = childRecipeAdapter
@@ -101,6 +115,10 @@ class ChildRecyclerViewAdapter(private val myRecipes: ArrayList<RecipeItem>, pri
             val recipeImage: ImageView = itemView.findViewById(R.id.Recipe_Image)
             recipeTitle.text = recipe.title
             recipeIngredients.text = recipe.ingredients
+            recipeImage.setImageResource(R.drawable.potato_soup)
+            view.setOnClickListener {
+                view.findNavController().navigate(R.id.action_recipeListFragment_to_newRecipeFragment)
+            }
 
         }
     }

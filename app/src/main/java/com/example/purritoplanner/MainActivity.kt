@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.mealButton -> {
                     //We haven't implemented this page yet!
                     //TEMPORARY FOR ME WHILE WORKING: It's going to a recipe page
-                    navController.navigate(R.id.viewRecipeFragment)
+                    navController.navigate(R.id.recipeListFragment)
                 }
                 R.id.shopButton -> {
                     navController.navigate(R.id.shoppingListFragment)
