@@ -54,8 +54,7 @@ class ShoppingListFragment : Fragment() {
         shoppingList.add(Shopping("Onions", "1 pack"))
         shoppingList.add(Shopping("Cucumber", "3"))
         shoppingList.add(Shopping("Garlic", "1"))
-        shoppingList.add(Shopping("Avocado", "1 pack"))
-
+        //shoppingList.add(Shopping("Avocado", "1 pack"))
 
     }
     inner class ShoppingListAdapter :
@@ -85,7 +84,7 @@ class ShoppingListFragment : Fragment() {
 
         override fun onBindViewHolder(holder: ShoppingViewHolder, position: Int) {
             val item = groceries[position]
-            val checkBox = holder.view.findViewById<CheckBox>(R.id.checkBox)
+            val checkBox = holder.view.findViewById<CheckBox>(R.id.ingredient_check_box)
             val shoppingQuantity = if (item.quantity != "") ("(${item.quantity})") else ""
             val shoppingText = "${item.name} ${shoppingQuantity}"
 
