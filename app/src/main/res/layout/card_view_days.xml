@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view_days"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardElevation="3dp"
+    app:cardMaxElevation="3dp">
+
+    <LinearLayout
+        android:id="@+id/home_card_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/home_card_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Monday"
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/home_card_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="14"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textSize="34sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/breakfastText"
+                android:layout_width="70dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_weight="1"
+                android:text="Breakfast: "
+                android:textColor="@color/black"
+                android:textAlignment="textStart"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/lunchText"
+                android:layout_width="70dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_weight="1"
+                android:text="Lunch: "
+                android:textColor="@color/black"
+                android:textAlignment="textStart"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/dinnerText"
+                android:layout_width="70dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:text="Dinner: "
+                android:textAlignment="textStart"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="234dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/breakfast"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:text="avocado and egg toast"
+                android:textAlignment="textStart"
+                android:textColor="@color/material_dynamic_primary50"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/lunch"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:text="chickpea salad"
+                android:textColor="@android:color/holo_green_light"
+                android:textAlignment="textStart"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/dinner"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:textColor="@android:color/holo_red_light"
+                android:text="roasted chicken and veges"
+                android:textAlignment="textStart"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
