@@ -4,9 +4,11 @@ import android.content.Intent
 import android.graphics.Paint
 import android.net.Uri
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
@@ -31,24 +33,34 @@ class ViewRecipeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        //Sets up the ingredients recyclerview.
         val recyclerView = view.findViewById<RecyclerView>(R.id.ingredients_list)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
-
         ingredientsList = ArrayList()
-        ingredientsList.add(Ingredient("Test", "1 cup"))
-        ingredientsList.add(Ingredient("Test", "1 cup"))
-        ingredientsList.add(Ingredient("Test", "1 cup"))
-        ingredientsList.add(Ingredient("Test", "1 cup"))
-        ingredientsList.add(Ingredient("Test", "1 cup"))
-        ingredientsList.add(Ingredient("Test", "1 cup"))
-        ingredientsList.add(Ingredient("Test", "1 cup"))
-        ingredientsList.add(Ingredient("Test", "1 cup"))
         adapter.setIngredients(ingredientsList as ArrayList<Ingredient>)
+        populateIngredientsList()
 
-        //it.findNavController()
-        //.navigate(R.id.action_listFragment_to_detailFragment, selectedElementData)
+        //Allows the recipe link to be clickable.
+        val recipeLink = view.findViewById<TextView>(R.id.recipe_link_text)
+        recipeLink.movementMethod = LinkMovementMethod.getInstance()
 
+        //Allows us to navigate to the "edit recipe" page.
+        //TODO: We need to make recipes parcelable and send the recipe over in a bundle.
+        view.findViewById<Button>(R.id.recipe_edit_button).setOnClickListener {
+            it.findNavController().navigate(R.id.action_viewRecipeFragment_to_newRecipeFragment)
+        }
+    }
+
+    private fun populateIngredientsList() {
+        ingredientsList.add(Ingredient("Uncooked bacon", "6 strips"))
+        ingredientsList.add(Ingredient("Unsalted butter", "3 tbsp"))
+        ingredientsList.add(Ingredient("Medium yellow onion"))
+        ingredientsList.add(Ingredient("Minced garlic cloves", "3 large"))
+        ingredientsList.add(Ingredient("Gold potatoes", "2 1/2 lbs"))
+        ingredientsList.add(Ingredient("Chicken broth", "4 cups"))
+        ingredientsList.add(Ingredient("Milk", "2 cups"))
+        ingredientsList.add(Ingredient("Heavy cream", "2/3 cup"))
     }
 
     inner class IngredientsListAdapter :
@@ -79,7 +91,8 @@ class ViewRecipeFragment : Fragment() {
         override fun onBindViewHolder(holder: IngredientViewHolder, position: Int) {
             val item = ingredients[position]
             val checkBox = holder.view.findViewById<CheckBox>(R.id.ingredient_check_box)
-            val ingredientText = "${item.name} (${item.quantity})"
+            val ingredientQuantity = if (item.quantity != "") ("(${item.quantity})") else ""
+            val ingredientText = "${item.name} ${ingredientQuantity}"
 
             checkBox.text = ingredientText
             checkBox.setOnCheckedChangeListener { buttonView, isChecked ->

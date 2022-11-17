@@ -72,6 +72,10 @@
         android:id="@+id/viewRecipeFragment"
         android:name="com.example.purritoplanner.ViewRecipeFragment"
         android:label="fragment_view_recipe"
-        tools:layout="@layout/fragment_view_recipe" />
+        tools:layout="@layout/fragment_view_recipe" >
+        <action
+            android:id="@+id/action_viewRecipeFragment_to_newRecipeFragment"
+            app:destination="@id/newRecipeFragment" />
+    </fragment>
 
 </navigation>
