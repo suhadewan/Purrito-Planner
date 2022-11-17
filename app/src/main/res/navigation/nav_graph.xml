@@ -27,7 +27,12 @@
         android:id="@+id/editShoppingListFragment"
         android:name="com.example.purritoplanner.EditShoppingListFragment"
         android:label="fragment_edit_shopping_list"
-        tools:layout="@layout/fragment_edit_shopping_list" />
+        tools:layout="@layout/fragment_edit_shopping_list" >
+        <action
+            android:id="@+id/action_editShoppingListFragment_to_shoppingListFragment"
+            app:destination="@+id/shoppingListFragment"/>
+
+    </fragment>
 
     <fragment
         android:id="@+id/newGroceryItemFragment"
@@ -51,7 +56,13 @@
         android:id="@+id/shoppingListFragment"
         android:name="com.example.purritoplanner.ShoppingListFragment"
         android:label="fragment_shopping_list"
-        tools:layout="@layout/fragment_shopping_list" />
+        tools:layout="@layout/fragment_shopping_list">
+        <action
+            android:id="@+id/action_shoppingListFragment_to_editShoppingListFragment"
+            app:destination="@+id/editShoppingListFragment"/>
+
+    </fragment>
+
 
     <fragment
         android:id="@+id/viewRecipeFragment"
