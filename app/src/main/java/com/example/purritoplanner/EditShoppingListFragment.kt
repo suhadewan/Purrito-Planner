@@ -25,23 +25,22 @@ class EditShoppingListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_view_recipe, container, false)
+        return inflater.inflate(R.layout.fragment_edit_shopping_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         //Sets up the ingredients recyclerview.
-        val recyclerView = view.findViewById<RecyclerView>(R.id.shoppingListRecycler)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.editShoppingListRecycler)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
         shoppingList = ArrayList()
         adapter.setGroceries(shoppingList as ArrayList<Shopping>)
         populateShoppingList()
 
-        //Allows us to navigate to the "edit recipe" page.
-        //TODO: We need to make recipes parcelable and send the recipe over in a bundle.
-        view.findViewById<Button>(R.id.editButton).setOnClickListener {
-            it.findNavController().navigate(R.id.action_editShoppingListFragment_to_shoppingListFragment)
+        view.findViewById<Button>(R.id.doneButton).setOnClickListener {
+            //it.findNavController().navigate(R.id.action_editShoppingListFragment_to_shoppingListFragment)
+            it.findNavController().navigateUp()
         }
     }
 
@@ -54,8 +53,7 @@ class EditShoppingListFragment : Fragment() {
         shoppingList.add(Shopping("Onions", "1 pack"))
         shoppingList.add(Shopping("Cucumber", "3"))
         shoppingList.add(Shopping("Garlic", "1"))
-        shoppingList.add(Shopping("Avocado", "1 pack"))
-
+        //shoppingList.add(Shopping("Avocado", "1 pack"))
 
     }
     inner class ShoppingListAdapter :
@@ -85,7 +83,7 @@ class EditShoppingListFragment : Fragment() {
 
         override fun onBindViewHolder(holder: ShoppingViewHolder, position: Int) {
             val item = groceries[position]
-            val checkBox = holder.view.findViewById<CheckBox>(R.id.checkBox)
+            val checkBox = holder.view.findViewById<CheckBox>(R.id.ingredient_check_box)
             val shoppingQuantity = if (item.quantity != "") ("(${item.quantity})") else ""
             val shoppingText = "${item.name} ${shoppingQuantity}"
 
@@ -105,6 +103,5 @@ class EditShoppingListFragment : Fragment() {
         }
 
     }
-
 
 }

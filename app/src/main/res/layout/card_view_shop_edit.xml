@@ -4,7 +4,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        app:cardBackgroundColor="@color/material_dynamic_neutral60">
+        app:cardBackgroundColor="#EDEDED">
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -12,7 +12,7 @@
             android:id="@+id/card_layout">
 
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/ingredient_check_box"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Grocery Item"
@@ -22,7 +22,7 @@
             app:layout_constraintBottom_toBottomOf="parent"/>
 
         <ImageButton
-            android:id="@+id/cart"
+            android:id="@+id/delete_icon"
             android:layout_width="32dp"
             android:layout_height="36dp"
             android:layout_marginEnd="16dp"
@@ -31,7 +31,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/checkBox"
+            app:layout_constraintStart_toEndOf="@+id/ingredient_check_box"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/trash" />
 
