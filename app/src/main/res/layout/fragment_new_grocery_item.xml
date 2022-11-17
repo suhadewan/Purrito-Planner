@@ -66,12 +66,11 @@
 
             <EditText
                 android:id="@+id/new_item_edit_text"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Enter a name here" />
+                android:inputType="textPersonName"/>
 
         </LinearLayout>
 
@@ -94,12 +93,11 @@
 
             <EditText
                 android:id="@+id/quantity_edit_text"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Enter a custom amount here" />
+                android:inputType="textPersonName" />
 
         </LinearLayout>
     </LinearLayout>
