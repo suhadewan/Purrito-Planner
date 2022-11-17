@@ -6,13 +6,65 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerViewControl"
+            android:name="com.example.purritoplanner.HomeFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            tools:layout="@layout/fragment_home" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fafafa"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageButton
+                android:id="@+id/homeButton"
+                android:layout_width="70dp"
+                android:layout_height="72dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"
+
+                app:srcCompat="@drawable/cat_button" />
+
+            <ImageButton
+                android:id="@+id/planButton"
+                android:layout_width="70dp"
+                android:layout_height="72dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"
+                app:srcCompat="@drawable/planner_button" />
+
+            <ImageButton
+                android:id="@+id/mealButton"
+                android:layout_width="70dp"
+                android:layout_height="72dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"
+                app:srcCompat="@drawable/meal_button" />
+
+            <ImageButton
+                android:id="@+id/shopButton"
+                android:layout_width="70dp"
+                android:layout_height="72dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"
+                app:srcCompat="@drawable/shop_button" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
