@@ -38,6 +38,9 @@
         <action
             android:id="@+id/action_editShoppingListFragment_to_shoppingListFragment"
             app:destination="@+id/shoppingListFragment"/>
+        <action
+            android:id="@+id/action_editShoppingListFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
 
     </fragment>
 
@@ -71,6 +74,9 @@
         <action
             android:id="@+id/action_shoppingListFragment_to_editShoppingListFragment"
             app:destination="@+id/editShoppingListFragment"/>
+        <action
+            android:id="@+id/action_shoppingListFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
 
     </fragment>
 
