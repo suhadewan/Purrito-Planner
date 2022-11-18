@@ -5,7 +5,7 @@
       <map>
         <entry key="..\:/Users/kitca/AndroidStudioProjects/Purrito-Planner/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/kitca/AndroidStudioProjects/Purrito-Planner/app/src/main/res/layout/card_view_days.xml" value="0.264" />
-        <entry key="..\:/Users/kitca/AndroidStudioProjects/Purrito-Planner/app/src/main/res/layout/card_view_shop.xml" value="0.18446601941747573" />
+        <entry key="..\:/Users/kitca/AndroidStudioProjects/Purrito-Planner/app/src/main/res/layout/card_view_shop.xml" value="0.19540229885057472" />
         <entry key="..\:/Users/kitca/AndroidStudioProjects/Purrito-Planner/app/src/main/res/layout/card_view_shop_edit.xml" value="0.24818840579710144" />
         <entry key="..\:/Users/kitca/AndroidStudioProjects/Purrito-Planner/app/src/main/res/layout/fragment_calendar.xml" value="0.1" />
         <entry key="..\:/Users/kitca/AndroidStudioProjects/Purrito-Planner/app/src/main/res/layout/fragment_choose_hat.xml" value="0.24818840579710144" />
@@ -28,10 +28,19 @@
         <entry key="..\:/Users/suhad/Documents/mobile dev/final/Purrito-Planner/app/src/main/res/layout/card_view_shop.xml" value="0.1875" />
         <entry key="..\:/Users/suhad/Documents/mobile dev/final/Purrito-Planner/app/src/main/res/layout/card_view_shop_edit.xml" value="0.1875" />
         <entry key="..\:/Users/suhad/Documents/mobile dev/final/Purrito-Planner/app/src/main/res/layout/fragment_calendar.xml" value="0.18645833333333334" />
+        <entry key="..\:/Users/suhad/Documents/mobile dev/final/Purrito-Planner/app/src/main/res/layout/fragment_choose_hat.xml" value="0.25" />
+        <entry key="..\:/Users/suhad/Documents/mobile dev/final/Purrito-Planner/app/src/main/res/layout/fragment_edit_shopping_list.xml" value="0.25" />
         <entry key="..\:/Users/suhad/Documents/mobile dev/final/Purrito-Planner/app/src/main/res/layout/fragment_editshoppinglist.xml" value="0.1875" />
         <entry key="..\:/Users/suhad/Documents/mobile dev/final/Purrito-Planner/app/src/main/res/layout/fragment_home.xml" value="0.264" />
+        <entry key="..\:/Users/suhad/Documents/mobile dev/final/Purrito-Planner/app/src/main/res/layout/fragment_home_screen.xml" value="0.25" />
+        <entry key="..\:/Users/suhad/Documents/mobile dev/final/Purrito-Planner/app/src/main/res/layout/fragment_new_grocery_item.xml" value="0.25" />
+        <entry key="..\:/Users/suhad/Documents/mobile dev/final/Purrito-Planner/app/src/main/res/layout/fragment_new_recipe.xml" value="0.25" />
         <entry key="..\:/Users/suhad/Documents/mobile dev/final/Purrito-Planner/app/src/main/res/layout/fragment_recipe.xml" value="0.264" />
+        <entry key="..\:/Users/suhad/Documents/mobile dev/final/Purrito-Planner/app/src/main/res/layout/fragment_recipe_list.xml" value="0.25" />
+        <entry key="..\:/Users/suhad/Documents/mobile dev/final/Purrito-Planner/app/src/main/res/layout/fragment_settings.xml" value="0.25" />
+        <entry key="..\:/Users/suhad/Documents/mobile dev/final/Purrito-Planner/app/src/main/res/layout/fragment_shopping_list.xml" value="0.25" />
         <entry key="..\:/Users/suhad/Documents/mobile dev/final/Purrito-Planner/app/src/main/res/layout/fragment_shoppinglist.xml" value="0.1875" />
+        <entry key="..\:/Users/suhad/Documents/mobile dev/final/Purrito-Planner/app/src/main/res/layout/fragment_view_recipe.xml" value="0.25" />
       </map>
     </option>
   </component>

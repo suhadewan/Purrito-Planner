@@ -43,6 +43,9 @@ class ShoppingListFragment : Fragment() {
         view.findViewById<Button>(R.id.editButton).setOnClickListener {
             it.findNavController().navigate(R.id.action_shoppingListFragment_to_editShoppingListFragment)
         }
+        view.findViewById<Button>(R.id.shopping_Settings_Button).setOnClickListener {
+            it.findNavController().navigate(R.id.action_shoppingListFragment_to_settingsFragment)
+        }
     }
 
     private fun populateShoppingList() {
