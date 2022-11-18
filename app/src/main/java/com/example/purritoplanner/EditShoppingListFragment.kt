@@ -42,7 +42,7 @@ class EditShoppingListFragment : Fragment() {
             //it.findNavController().navigate(R.id.action_editShoppingListFragment_to_shoppingListFragment)
             it.findNavController().navigateUp()
         }
-        view.findViewById<Button>(R.id.editShop_Settings_Button).setOnClickListener {
+        view.findViewById<ImageView>(R.id.editShop_Settings_Button).setOnClickListener {
             it.findNavController().navigate(R.id.action_editShoppingListFragment_to_settingsFragment)
         }
     }

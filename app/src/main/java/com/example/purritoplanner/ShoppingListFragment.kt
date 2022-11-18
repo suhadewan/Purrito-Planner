@@ -1,6 +1,7 @@
 package com.example.purritoplanner
 
 import android.graphics.Paint
+import android.media.Image
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import androidx.fragment.app.Fragment
@@ -43,7 +44,7 @@ class ShoppingListFragment : Fragment() {
         view.findViewById<Button>(R.id.editButton).setOnClickListener {
             it.findNavController().navigate(R.id.action_shoppingListFragment_to_editShoppingListFragment)
         }
-        view.findViewById<Button>(R.id.shopping_Settings_Button).setOnClickListener {
+        view.findViewById<ImageView>(R.id.shopping_Settings_Button).setOnClickListener {
             it.findNavController().navigate(R.id.action_shoppingListFragment_to_settingsFragment)
         }
     }
