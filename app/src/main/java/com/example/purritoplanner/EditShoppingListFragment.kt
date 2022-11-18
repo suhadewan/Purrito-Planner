@@ -53,7 +53,11 @@ class EditShoppingListFragment : Fragment() {
         shoppingList.add(Shopping("Onions", "1 pack"))
         shoppingList.add(Shopping("Cucumber", "3"))
         shoppingList.add(Shopping("Garlic", "1"))
-        //shoppingList.add(Shopping("Avocado", "1 pack"))
+        shoppingList.add(Shopping("Avocado", "1 pack"))
+
+        shoppingList.add(Shopping("Cucumber", "3"))
+        shoppingList.add(Shopping("Garlic", "1"))
+        shoppingList.add(Shopping("Avocado", "1 pack"))
 
     }
     inner class ShoppingListAdapter :
