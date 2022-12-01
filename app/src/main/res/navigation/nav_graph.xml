@@ -77,8 +77,17 @@
         <action
             android:id="@+id/action_shoppingListFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_shoppingListFragment_to_newShoppingItemFragment"
+            app:destination="@id/newShoppingItemFragment" />
 
     </fragment>
+
+    <fragment
+        android:id="@+id/newShoppingItemFragment"
+        android:name="com.example.purritoplanner.NewShoppingItemFragment"
+        android:label="fragment_new_shopping_item"
+        tools:layout="@layout/fragment_new_shopping_item" />
 
 
     <fragment

@@ -17,10 +17,11 @@
         android:layout_marginTop="8dp"
         android:orientation="horizontal">
 
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+        <ImageView
+            android:id="@+id/Add_Shopping_Button"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:src="@android:drawable/ic_menu_add" />
 
         <Button
             android:id="@+id/editButton"
@@ -32,10 +33,9 @@
             android:text="Edit" />
 
         <ImageView
-            android:id="@+id/shopping_Settings_Button"
-            android:layout_width="0dp"
+            android:id="@+id/Shopping_Settings_Button"
+            android:layout_width="75dp"
             android:layout_height="75dp"
-            android:layout_weight="1"
             android:src="@drawable/settings_gear" />
 
     </LinearLayout>
