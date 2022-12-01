@@ -20,6 +20,7 @@ import java.util.ArrayList
 class ShoppingListFragment : Fragment() {
     private var shoppingList: MutableList<Shopping> = ArrayList()
     private val adapter = ShoppingListAdapter()
+    private lateinit var addShoppingItemButton: ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,9 +45,16 @@ class ShoppingListFragment : Fragment() {
         view.findViewById<Button>(R.id.editButton).setOnClickListener {
             it.findNavController().navigate(R.id.action_shoppingListFragment_to_editShoppingListFragment)
         }
-        view.findViewById<ImageView>(R.id.shopping_Settings_Button).setOnClickListener {
+        view.findViewById<ImageView>(R.id.Shopping_Settings_Button).setOnClickListener {
             it.findNavController().navigate(R.id.action_shoppingListFragment_to_settingsFragment)
         }
+
+        addShoppingItemButton = view.findViewById(R.id.Add_Shopping_Button)
+
+        addShoppingItemButton.setOnClickListener {
+            view.findNavController().navigate(R.id.action_shoppingListFragment_to_newShoppingItemFragment)
+        }
+
     }
 
     private fun populateShoppingList() {

@@ -1,5 +1,8 @@
 package com.example.purritoplanner
 
+import android.content.Context
+import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -40,8 +43,19 @@ class ChooseHatFragment : Fragment() {
             view.findNavController().navigate(R.id.homeScreenFragment)
         }
 
-        topHatIcon.setOnClickListener {
+        val preferenceAccess = requireActivity().getSharedPreferences("pref", Context.MODE_PRIVATE)
+        val editPreferences: SharedPreferences.Editor = preferenceAccess.edit()
+        val selectedHat = preferenceAccess.getString("selectedHat", "Nothing")
+        when (selectedHat) {
+            "TopHat" -> topHatIcon.setBackgroundColor(Color.argb(75, 214, 53, 4))
+            "Nothing" -> nothingIcon.setBackgroundColor(Color.argb(75, 214, 53, 4))
+        }
 
+        topHatIcon.setOnClickListener {
+            unselectAll()
+            topHatIcon.setBackgroundColor(Color.argb(75, 214, 53, 4))
+            editPreferences.putString("selectedHat", "TopHat")
+            editPreferences.commit()
         }
 
         pirateHatIcon.setOnClickListener {
@@ -61,9 +75,17 @@ class ChooseHatFragment : Fragment() {
         }
 
         nothingIcon.setOnClickListener {
-
+            unselectAll()
+            nothingIcon.setBackgroundColor(Color.argb(75, 214, 53, 4))
+            editPreferences.putString("selectedHat", "Nothing")
+            editPreferences.commit()
         }
 
         return view
+    }
+
+    fun unselectAll() {
+        topHatIcon.setBackgroundColor(Color.argb(0, 0, 0, 0))
+        nothingIcon.setBackgroundColor(Color.argb(0, 0, 0, 0))
     }
 }

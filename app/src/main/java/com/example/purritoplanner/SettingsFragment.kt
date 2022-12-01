@@ -1,11 +1,14 @@
 package com.example.purritoplanner
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.fragment.app.Fragment
+
 
 class SettingFragment : Fragment() {
     private lateinit var objective1EditText: EditText
@@ -39,20 +42,31 @@ class SettingFragment : Fragment() {
         pushNotificationsSwitch = view.findViewById(R.id.Push_On_Off)
         themeGroup = view.findViewById(R.id.Theme_Group)
 
+        val preferenceAccess = requireActivity().getSharedPreferences("pref", Context.MODE_PRIVATE)
+        val editPreferences: SharedPreferences.Editor = preferenceAccess.edit()
+        objective1EditText.setText(preferenceAccess.getString("objective1", "Eat at least 1 meal a day"))
+        objective2EditText.setText(preferenceAccess.getString("objective2", "Try one new meal"))
+        objective3EditText.setText(preferenceAccess.getString("objective3", "Go grocery shopping"))
+        objective4EditText.setText(preferenceAccess.getString("objective4", "Pet cat"))
+
         pushNotificationsSwitch.setOnClickListener {
 
         }
         objective1ConfirmButton.setOnClickListener {
-
+            editPreferences.putString("objective1", objective1EditText.text.toString())
+            editPreferences.commit()
         }
         objective2ConfirmButton.setOnClickListener {
-
+            editPreferences.putString("objective2", objective2EditText.text.toString())
+            editPreferences.commit()
         }
         objective3ConfirmButton.setOnClickListener {
-
+            editPreferences.putString("objective3", objective3EditText.text.toString())
+            editPreferences.commit()
         }
         objective4ConfirmButton.setOnClickListener {
-
+            editPreferences.putString("objective4", objective4EditText.text.toString())
+            editPreferences.commit()
         }
 
         themeGroup.setOnCheckedChangeListener { group, id ->
