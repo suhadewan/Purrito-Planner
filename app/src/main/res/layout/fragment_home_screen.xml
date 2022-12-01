@@ -22,6 +22,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Hat_Icon" />
 
+        <ImageView
+            android:id="@+id/Hat_Image_Holder"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginBottom="120dp"
+            android:src="@drawable/top_hat_thumbnail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.36"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/Cat_Image"/>
+
         <ProgressBar
             android:id="@+id/Objective_Progress_Bar"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
