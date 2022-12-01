@@ -4,4 +4,4 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class RecipeItem(var title: String, var ingredients: String): Parcelable
+data class RecipeItem(var title: String = "Error", var ingredients: String = "Error"): Parcelable

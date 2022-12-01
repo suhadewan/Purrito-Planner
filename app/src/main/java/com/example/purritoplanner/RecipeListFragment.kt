@@ -1,6 +1,7 @@
 package com.example.purritoplanner
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.*
 
 class RecipeListFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
@@ -18,6 +20,9 @@ class RecipeListFragment : Fragment() {
     private val recipeHeaders = ArrayList<String>()
     private lateinit var addRecipeButton: ImageView
     private lateinit var settingsButton: ImageView
+
+    private lateinit var database: DatabaseReference
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +32,7 @@ class RecipeListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        initArray(recipeHeaders)
+        database = FirebaseDatabase.getInstance().reference
         val view = inflater.inflate(R.layout.fragment_recipe_list, container, false)
         recyclerView = view.findViewById(R.id.recipes)
         recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
@@ -35,6 +40,9 @@ class RecipeListFragment : Fragment() {
         recyclerView.adapter = viewAdapter
         addRecipeButton = view.findViewById(R.id.Add_Recipe_Button)
         settingsButton = view.findViewById(R.id.Recipe_Settings_Button)
+        initArray(recipeHeaders)
+
+
 
         addRecipeButton.setOnClickListener {
             view.findNavController().navigate(R.id.action_recipeListFragment_to_newRecipeFragment)
@@ -56,8 +64,24 @@ class RecipeListFragment : Fragment() {
         myDataset.add("Snack")
         myDataset.add("Dinner")
         myDataset.add("Drinks")
+        //myDataset.add("Dessert")
         myDataset.add("Quick and Easy")
         myDataset.add("On a Budget")
+        viewAdapter.notifyDataSetChanged()
+
+        //to add into recyclerview rn
+        val recipe = RecipeItem("Soup", "Carrots, Mushroom, Cream, Meat")
+        val recipe2 = RecipeItem("Brownies", "Flour, Sugar, Oil, Chocolate")
+        database.child("Favorites").child(recipe.title).setValue(recipe)
+        database.child("Favorites").child(recipe2.title).setValue(recipe2)
+        database.child("Breakfast").child(recipe.title).setValue(recipe)
+        database.child("Lunch").child(recipe.title).setValue(recipe)
+        database.child("Snack").child(recipe.title).setValue(recipe)
+        database.child("Dinner").child(recipe.title).setValue(recipe)
+        database.child("Drinks").child(recipe.title).setValue(recipe)
+        //database.child("Dessert").child(recipe.title).setValue(recipe)
+        database.child("Quick and Easy").child(recipe.title).setValue(recipe)
+        database.child("On a Budget").child(recipe.title).setValue(recipe)
 
     }
 
@@ -81,21 +105,52 @@ class RecyclerViewAdapter(private val myDataset: ArrayList<String>, private val 
     override fun getItemCount() = myDataset.size
 
     class ViewHolder(private val view: View, private val activity: MainActivity) : RecyclerView.ViewHolder(view) {
+        private lateinit var database: DatabaseReference
+        private val recipes = mutableListOf<RecipeItem>()
         fun bindItems(recipeHeaders: String) {
             val recipeHeader: TextView = itemView.findViewById(R.id.Recipe_Category)
             recipeHeader.text = recipeHeaders
+            recipes.clear()
             val recipeRecyclerView = view.findViewById<RecyclerView>(R.id.recipes)
-            val recipes = ArrayList<RecipeItem>()
-            recipes.add(RecipeItem("Soup", "Carrots, Mushroom, Cream, Meat"))
-            val childRecipeAdapter = ChildRecyclerViewAdapter(recipes, activity as MainActivity)
-            recipeRecyclerView.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
-            recipeRecyclerView.adapter = childRecipeAdapter
+            database = FirebaseDatabase.getInstance().reference
+            Log.d("testRecipe", recipeHeaders)
+            when (recipeHeaders) {
+                "Favorites" -> initRecyclerView("Favorites", recipeRecyclerView)
+                "Breakfast" -> initRecyclerView("Breakfast", recipeRecyclerView)
+                "Lunch" -> initRecyclerView("Lunch", recipeRecyclerView)
+                "Snack" -> initRecyclerView("Snack", recipeRecyclerView)
+                "Dinner" -> initRecyclerView("Dinner", recipeRecyclerView)
+                "Drinks" -> initRecyclerView("Drinks", recipeRecyclerView)
+                "Quick and Easy" -> initRecyclerView("Quick and Easy", recipeRecyclerView)
+                "On a Budget" -> initRecyclerView("On a Budget", recipeRecyclerView)
+
+            }
+
+        }
+
+        private fun initRecyclerView(pathString: String, recipeRecyclerView: RecyclerView) {
+            database.child(pathString)
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        for (snapshot in dataSnapshot.children) {
+                            val recipeItem: RecipeItem? = snapshot.getValue(RecipeItem::class.java)
+                            Log.d("testItems", pathString + ": " +recipeItem!!.title)
+                            recipes += recipeItem
+
+                        }
+                        Log.d("testInit", recipes.toString())
+                        val childRecipeAdapter = ChildRecyclerViewAdapter(recipes, activity as MainActivity)
+                        recipeRecyclerView.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
+                        recipeRecyclerView.adapter = childRecipeAdapter
+                    }
+                    override fun onCancelled(databaseError: DatabaseError) {}
+                })
 
         }
     }
 }
 
-class ChildRecyclerViewAdapter(private val myRecipes: ArrayList<RecipeItem>, private val activity: MainActivity) :
+class ChildRecyclerViewAdapter(private val myRecipes: MutableList<RecipeItem>, private val activity: MainActivity) :
     RecyclerView.Adapter<ChildRecyclerViewAdapter.RecipeViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup,
