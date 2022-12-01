@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "292724612283",
+    "project_id": "purrito-planner",
+    "storage_bucket": "purrito-planner.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:292724612283:android:96b19c5923ec8e403d5d9e",
+        "android_client_info": {
+          "package_name": "com.example.purritoplanner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "292724612283-pum1iuj58u2aut3cg8g33v0a94qcnh2b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3Yq7X-avWLct0YNcc16BocR0a-x7bUhY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "292724612283-pum1iuj58u2aut3cg8g33v0a94qcnh2b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
