@@ -12,6 +12,7 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 
@@ -123,6 +124,12 @@ class HomeScreenFragment : Fragment() {
         when (selectedHat) {
             "TopHat" -> hatImage.setBackgroundResource(R.drawable.top_hat_thumbnail)
             "Nothing" -> hatImage.visibility = View.GONE
+        }
+
+        val selectedTheme = preferenceAccess.getBoolean("nightMode", false)
+        when (selectedTheme) {
+            true -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            false -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 
 

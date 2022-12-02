@@ -101,7 +101,6 @@ class SettingFragment : Fragment() {
             }
 
         }
-        
 
         return view
     }
