@@ -7,7 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
+import com.google.android.material.button.MaterialButtonToggleGroup
 
 
 class SettingFragment : Fragment() {
@@ -20,10 +22,12 @@ class SettingFragment : Fragment() {
     private lateinit var objective3ConfirmButton: Button
     private lateinit var objective4ConfirmButton: Button
     private lateinit var pushNotificationsSwitch: Switch
-    private lateinit var themeGroup: RadioGroup
+    private lateinit var themeGroup: MaterialButtonToggleGroup
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
     }
 
     override fun onCreateView(
@@ -40,7 +44,7 @@ class SettingFragment : Fragment() {
         objective3ConfirmButton = view.findViewById(R.id.Confirm_Objective_3_Button)
         objective4ConfirmButton = view.findViewById(R.id.Confirm_Objective_4_Button)
         pushNotificationsSwitch = view.findViewById(R.id.Push_On_Off)
-        themeGroup = view.findViewById(R.id.Theme_Group)
+        themeGroup = view.findViewById(R.id.themeButtons)
 
         val preferenceAccess = requireActivity().getSharedPreferences("pref", Context.MODE_PRIVATE)
         val editPreferences: SharedPreferences.Editor = preferenceAccess.edit()
@@ -69,9 +73,29 @@ class SettingFragment : Fragment() {
             editPreferences.commit()
         }
 
-        themeGroup.setOnCheckedChangeListener { group, id ->
-            val themeButton = view.findViewById<RadioButton>(id)
-        }
+//        themeGroup.setOnCheckedChangeListener { group, id ->
+//            val themeButton = view.findViewById<RadioButton>(id)
+//        }
+        themeGroup.addOnButtonCheckedListener(object :MaterialButtonToggleGroup.OnButtonCheckedListener{
+            override fun onButtonChecked(
+                group: MaterialButtonToggleGroup?,
+                checkedId: Int,
+                isChecked: Boolean
+            ) {
+                if(isChecked) {
+                    val theme = when(checkedId) {
+                        R.id.lightModeButton -> AppCompatDelegate.MODE_NIGHT_NO
+                        else -> AppCompatDelegate.MODE_NIGHT_YES
+                    }
+                    AppCompatDelegate.setDefaultNightMode(theme)
+
+                }
+
+            }
+
+        })
+
+
 
         return view
     }

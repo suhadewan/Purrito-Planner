@@ -122,7 +122,7 @@
             android:id="@+id/Settings_Icon"
             android:layout_width="75dp"
             android:layout_height="75dp"
-            android:layout_marginStart="228dp"
+            android:layout_marginStart="220dp"
             android:layout_marginTop="8dp"
             android:src="@drawable/settings_gear"
             app:layout_constraintStart_toEndOf="@+id/Hat_Icon"

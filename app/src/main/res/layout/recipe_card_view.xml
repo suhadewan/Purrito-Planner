@@ -34,6 +34,7 @@
             android:layout_height="58dp"
             android:layout_marginStart="12dp"
             android:layout_marginTop="8dp"
+            android:textColor="@color/grey"
             android:text="ingredients in recipe"
             app:layout_constraintStart_toEndOf="@+id/imageView2"
             app:layout_constraintTop_toBottomOf="@+id/Recipe_Title" />

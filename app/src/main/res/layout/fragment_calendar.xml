@@ -17,7 +17,6 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
             android:text="Meal Plan"
-            android:textAppearance="?attr/textAppearanceBodyLarge"
             android:textSize="30sp" />
 
         <TextView

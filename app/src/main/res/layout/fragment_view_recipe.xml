@@ -67,6 +67,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/recipe_title_text"
                     android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -74,6 +75,7 @@
                     android:id="@+id/recipe_tags_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:layout_marginStart="24dp"
                     android:layout_marginEnd="24dp"
                     android:text="@string/recipe_tags_text"

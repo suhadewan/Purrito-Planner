@@ -70,6 +70,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Recipe Title (Required):"
+                    android:textColor="@color/black"
                     android:textAlignment="center"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -86,6 +87,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Recipe Link (Optional):"
+                    android:textColor="@color/black"
                     android:textAlignment="center"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -181,6 +183,7 @@
             android:layout_height="wrap_content"
             android:gravity="bottom|center_horizontal"
             android:inputType="textMultiLine"
+            android:textColor="@color/black"
             android:lines="8"
             android:minLines="2"
             android:scrollbars="vertical"

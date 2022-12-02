@@ -214,31 +214,33 @@
             app:layout_constraintTop_toBottomOf="@+id/divider5"
             app:layout_constraintVertical_bias="0.06" />
 
-        <RadioGroup
-            android:id="@+id/Theme_Group"
-            android:layout_width="263dp"
-            android:layout_height="58dp"
-            android:orientation="horizontal"
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/themeButtons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.418"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Theme_Heading"
+            app:singleSelection="true"
+            app:selectionRequired="true"
             app:layout_constraintVertical_bias="0.057">
 
-            <RadioButton
-                android:id="@+id/Light_Mode_Button"
+            <Button
+                android:id="@+id/lightModeButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:text="light"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                android:text="Light Mode" />
-
-            <RadioButton
-                android:id="@+id/Dark_Mode_Button"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/darkModeButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:text="dark"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Dark Mode" />
-        </RadioGroup>
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.button.MaterialButtonToggleGroup>
 
         <View
             android:id="@+id/divider4"

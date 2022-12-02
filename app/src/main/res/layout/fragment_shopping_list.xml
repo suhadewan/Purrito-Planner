@@ -21,6 +21,7 @@
             android:id="@+id/Add_Shopping_Button"
             android:layout_width="75dp"
             android:layout_height="75dp"
+            android:layout_marginStart="10dp"
             android:src="@android:drawable/ic_menu_add" />
 
         <Button
@@ -36,6 +37,7 @@
             android:id="@+id/Shopping_Settings_Button"
             android:layout_width="75dp"
             android:layout_height="75dp"
+            android:layout_marginEnd="10dp"
             android:src="@drawable/settings_gear" />
 
     </LinearLayout>
@@ -52,7 +54,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="My Shopping List"
-            android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintTop_toBottomOf="@+id/editButton" />
 
