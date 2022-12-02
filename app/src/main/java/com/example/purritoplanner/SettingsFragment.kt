@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.button.MaterialButtonToggleGroup
 
@@ -22,7 +23,7 @@ class SettingFragment : Fragment() {
     private lateinit var objective3ConfirmButton: Button
     private lateinit var objective4ConfirmButton: Button
     private lateinit var pushNotificationsSwitch: Switch
-    private lateinit var themeGroup: MaterialButtonToggleGroup
+    private lateinit var theme: SwitchCompat
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +45,7 @@ class SettingFragment : Fragment() {
         objective3ConfirmButton = view.findViewById(R.id.Confirm_Objective_3_Button)
         objective4ConfirmButton = view.findViewById(R.id.Confirm_Objective_4_Button)
         pushNotificationsSwitch = view.findViewById(R.id.Push_On_Off)
-        themeGroup = view.findViewById(R.id.themeButtons)
+        theme = view.findViewById(R.id.themeSwitch)
 
         val preferenceAccess = requireActivity().getSharedPreferences("pref", Context.MODE_PRIVATE)
         val editPreferences: SharedPreferences.Editor = preferenceAccess.edit()
@@ -73,22 +74,35 @@ class SettingFragment : Fragment() {
             editPreferences.commit()
         }
 
-//        themeGroup.setOnCheckedChangeListener { group, id ->
-//            val themeButton = view.findViewById<RadioButton>(id)
-//        }
-        themeGroup.addOnButtonCheckedListener { group, checkedId, isChecked ->
-            if (isChecked) {
-                val theme = when (checkedId) {
-                    R.id.lightModeButton -> AppCompatDelegate.MODE_NIGHT_NO
-                    else -> AppCompatDelegate.MODE_NIGHT_YES
-                }
-                AppCompatDelegate.setDefaultNightMode(theme)
-
-            }
+        val bool: Boolean = preferenceAccess.getBoolean("nightMode", true)
+        if (bool) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            theme.isChecked = true
+            theme.setText("Night Mode")
+        }
+        else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            theme.isChecked = false
+            theme.setText("Day Mode")
         }
 
+        theme.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                true -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    theme.isChecked = true
+                    editPreferences.putBoolean("nightMode", true)
+                    editPreferences.commit()
+                }
+                false -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    theme.isChecked = false
+                    editPreferences.putBoolean("nightMode", false)
+                    editPreferences.commit()
+                }
+            }
 
-
+        }
 
         return view
     }

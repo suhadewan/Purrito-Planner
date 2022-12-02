@@ -215,11 +215,41 @@
             app:layout_constraintVertical_bias="0.06" />
 
 
-        <com.google.android.material.button.MaterialButtonToggleGroup
-            android:id="@+id/themeButtons"
+<!--        <com.google.android.material.button.MaterialButtonToggleGroup-->
+<!--            android:id="@+id/themeButtons"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.418"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/Theme_Heading"-->
+<!--            android:layout_marginStart="30dp"-->
+<!--            app:layout_constraintVertical_bias="0.057"-->
+<!--            app:selectionRequired="true"-->
+<!--            app:singleSelection="true">-->
+
+<!--            <Button-->
+<!--                android:id="@+id/lightModeButton"-->
+<!--                style="@style/Widget.MaterialComponents.Button.OutlinedButton"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="light" />-->
+
+<!--            <Button-->
+<!--                android:id="@+id/darkModeButton"-->
+<!--                style="@style/Widget.MaterialComponents.Button.OutlinedButton"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="dark" />-->
+<!--        </com.google.android.material.button.MaterialButtonToggleGroup>-->
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/themeSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:text="Day mode"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.418"
             app:layout_constraintStart_toStartOf="parent"
@@ -227,22 +257,9 @@
             android:layout_marginStart="30dp"
             app:layout_constraintVertical_bias="0.057"
             app:selectionRequired="true"
-            app:singleSelection="true">
+            app:singleSelection="true" />
 
-            <Button
-                android:id="@+id/lightModeButton"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="light" />
 
-            <Button
-                android:id="@+id/darkModeButton"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="dark" />
-        </com.google.android.material.button.MaterialButtonToggleGroup>
 
         <View
             android:id="@+id/divider4"
