@@ -32,7 +32,7 @@ class RecipeListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        database = FirebaseDatabase.getInstance().reference
+        database = FirebaseDatabase.getInstance("https://purrito-planner-default-rtdb.firebaseio.com/").reference
         val view = inflater.inflate(R.layout.fragment_recipe_list, container, false)
         recyclerView = view.findViewById(R.id.recipes)
         recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
@@ -78,11 +78,9 @@ class RecipeListFragment : Fragment() {
         database.child("Lunch").child(recipe.title).setValue(recipe)
         database.child("Snack").child(recipe.title).setValue(recipe)
         database.child("Dinner").child(recipe.title).setValue(recipe)
-        database.child("Drinks").child(recipe.title).setValue(recipe)
         //database.child("Dessert").child(recipe.title).setValue(recipe)
         database.child("Quick and Easy").child(recipe.title).setValue(recipe)
         database.child("On a Budget").child(recipe.title).setValue(recipe)
-
     }
 
 }
@@ -113,7 +111,8 @@ class RecyclerViewAdapter(private val myDataset: ArrayList<String>, private val 
             recipes.clear()
             val recipeRecyclerView = view.findViewById<RecyclerView>(R.id.recipes)
             database = FirebaseDatabase.getInstance().reference
-            Log.d("testRecipe", recipeHeaders)
+            recipeRecyclerView.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
+            recipeRecyclerView.adapter = EmptyRecyclerViewAdapter(activity as MainActivity)
             when (recipeHeaders) {
                 "Favorites" -> initRecyclerView("Favorites", recipeRecyclerView)
                 "Breakfast" -> initRecyclerView("Breakfast", recipeRecyclerView)
@@ -125,12 +124,11 @@ class RecyclerViewAdapter(private val myDataset: ArrayList<String>, private val 
                 "On a Budget" -> initRecyclerView("On a Budget", recipeRecyclerView)
 
             }
-
         }
 
         private fun initRecyclerView(pathString: String, recipeRecyclerView: RecyclerView) {
             database.child(pathString)
-                .addListenerForSingleValueEvent(object : ValueEventListener {
+                .addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         for (snapshot in dataSnapshot.children) {
                             val recipeItem: RecipeItem? = snapshot.getValue(RecipeItem::class.java)
@@ -140,12 +138,11 @@ class RecyclerViewAdapter(private val myDataset: ArrayList<String>, private val 
                         }
                         Log.d("testInit", recipes.toString())
                         val childRecipeAdapter = ChildRecyclerViewAdapter(recipes, activity as MainActivity)
-                        recipeRecyclerView.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
                         recipeRecyclerView.adapter = childRecipeAdapter
+                        childRecipeAdapter.notifyDataSetChanged()
                     }
                     override fun onCancelled(databaseError: DatabaseError) {}
                 })
-
         }
     }
 }
@@ -182,3 +179,27 @@ class ChildRecyclerViewAdapter(private val myRecipes: MutableList<RecipeItem>, p
         holder.bindItems(myRecipes[position])
     }
 }
+
+class EmptyRecyclerViewAdapter(private val activity: MainActivity) :
+    RecyclerView.Adapter<EmptyRecyclerViewAdapter.EmptyViewHolder>() {
+
+    override fun onCreateViewHolder(parent: ViewGroup,
+                                    viewType: Int): EmptyRecyclerViewAdapter.EmptyViewHolder {
+        val v = LayoutInflater.from(parent.context)
+            .inflate(R.layout.recipe_card_view, parent, false)
+        return EmptyViewHolder(v, activity)
+    }
+
+    // Return the size of your dataset (invoked by the layout manager)
+    override fun getItemCount() = 0
+
+    class EmptyViewHolder(private val view: View, private val activity: MainActivity) : RecyclerView.ViewHolder(view) {
+        fun bindItems(recipe: RecipeItem) {
+        }
+    }
+
+    override fun onBindViewHolder(holder: EmptyViewHolder, position: Int) {
+    }
+}
+
+

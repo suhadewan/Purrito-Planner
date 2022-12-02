@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "292724612283",
+    "firebase_url": "https://purrito-planner-default-rtdb.firebaseio.com",
     "project_id": "purrito-planner",
     "storage_bucket": "purrito-planner.appspot.com"
   },

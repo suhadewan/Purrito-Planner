@@ -1,14 +1,22 @@
 package com.example.purritoplanner
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 class NewShoppingItemFragment : Fragment() {
+    private lateinit var editNewItem: EditText
+    private lateinit var editNewQuantity: EditText
+    private lateinit var database: DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,9 +29,22 @@ class NewShoppingItemFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         val saveButton = view.findViewById<Button>(R.id.save_button)
+        editNewItem = view.findViewById(R.id.new_item_edit_text)
+        editNewQuantity = view.findViewById(R.id.quantity_edit_text)
         saveButton.setOnClickListener {
             //TODO: Have this save the data in some way
-            it.findNavController().navigateUp()
+            if (editNewItem.text.toString() != "" && editNewQuantity.text.toString() != "") {
+                val newGroceryItem = Shopping(editNewItem.text.toString(), editNewQuantity.text.toString())
+                database = FirebaseDatabase.getInstance("https://purrito-planner-default-rtdb.firebaseio.com/").reference
+                database.child("Grocery List").child(newGroceryItem.name).setValue(newGroceryItem).addOnFailureListener {
+                    Log.d("testFail", "failed to upload")
+                }
+                //have paradigm if name matches something in grocery list already?
+                it.findNavController().navigateUp()
+            }
+            else {
+                Toast.makeText(getActivity(),"Enter Item and/or Quantity", Toast.LENGTH_SHORT).show()
+            }
         }
 
         view.findViewById<Button>(R.id.cancel_button).setOnClickListener {
