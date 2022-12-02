@@ -76,24 +76,17 @@ class SettingFragment : Fragment() {
 //        themeGroup.setOnCheckedChangeListener { group, id ->
 //            val themeButton = view.findViewById<RadioButton>(id)
 //        }
-        themeGroup.addOnButtonCheckedListener(object :MaterialButtonToggleGroup.OnButtonCheckedListener{
-            override fun onButtonChecked(
-                group: MaterialButtonToggleGroup?,
-                checkedId: Int,
-                isChecked: Boolean
-            ) {
-                if(isChecked) {
-                    val theme = when(checkedId) {
-                        R.id.lightModeButton -> AppCompatDelegate.MODE_NIGHT_NO
-                        else -> AppCompatDelegate.MODE_NIGHT_YES
-                    }
-                    AppCompatDelegate.setDefaultNightMode(theme)
-
+        themeGroup.addOnButtonCheckedListener { group, checkedId, isChecked ->
+            if (isChecked) {
+                val theme = when (checkedId) {
+                    R.id.lightModeButton -> AppCompatDelegate.MODE_NIGHT_NO
+                    else -> AppCompatDelegate.MODE_NIGHT_YES
                 }
+                AppCompatDelegate.setDefaultNightMode(theme)
 
             }
+        }
 
-        })
 
 
 
