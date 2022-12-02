@@ -78,10 +78,12 @@ class SettingFragment : Fragment() {
         if (bool) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             theme.isChecked = true
+            theme.setText("Night Mode")
         }
         else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             theme.isChecked = false
+            theme.setText("Day Mode")
         }
 
         theme.setOnCheckedChangeListener { _, checkedId ->
