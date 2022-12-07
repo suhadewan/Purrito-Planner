@@ -15,12 +15,15 @@ import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.*
 import java.util.ArrayList
 
 class ShoppingListFragment : Fragment() {
     private var shoppingList: MutableList<Shopping> = ArrayList()
     private val adapter = ShoppingListAdapter()
     private lateinit var addShoppingItemButton: ImageView
+
+    private lateinit var database: DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +41,7 @@ class ShoppingListFragment : Fragment() {
         recyclerView.adapter = adapter
         shoppingList = ArrayList()
         adapter.setGroceries(shoppingList as ArrayList<Shopping>)
+        database = FirebaseDatabase.getInstance().reference
         populateShoppingList()
 
         //Allows us to navigate to the "edit recipe" page.
@@ -58,19 +62,17 @@ class ShoppingListFragment : Fragment() {
     }
 
     private fun populateShoppingList() {
-        shoppingList.add(Shopping("Butter", "2 sticks"))
-        shoppingList.add(Shopping("Chicken", "1"))
-        shoppingList.add(Shopping("Sugar", "1 pack"))
-        shoppingList.add(Shopping("Carrots", "2"))
-        shoppingList.add(Shopping("Bread", "1 pack"))
-        shoppingList.add(Shopping("Onions", "1 pack"))
-        shoppingList.add(Shopping("Cucumber", "3"))
-        shoppingList.add(Shopping("Garlic", "1"))
-        shoppingList.add(Shopping("Avocado", "1 pack"))
+        database.child("Grocery List").addListenerForSingleValueEvent(object: ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (snapshot in dataSnapshot.children) {
+                    val groceryItem: Shopping? = snapshot.getValue(Shopping::class.java)
+                    shoppingList.add(groceryItem!!)
+                }
+                adapter.setGroceries(shoppingList as ArrayList<Shopping>)
+            }
 
-        shoppingList.add(Shopping("Cucumber", "3"))
-        shoppingList.add(Shopping("Garlic", "1"))
-        shoppingList.add(Shopping("Avocado", "1 pack"))
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
 
     }
     inner class ShoppingListAdapter :
@@ -80,7 +82,7 @@ class ShoppingListFragment : Fragment() {
         fun removeElement(pos: Int) {
             //TODO: Remove from database when that gets hooked up
             groceries.removeAt(pos)
-            adapter.notifyItemRemoved(pos);
+            adapter.notifyItemRemoved(pos)
         }
 
         internal fun setGroceries(groceries: java.util.ArrayList<Shopping>) {

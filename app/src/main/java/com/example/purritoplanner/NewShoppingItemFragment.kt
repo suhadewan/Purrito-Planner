@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import java.util.*
 
 class NewShoppingItemFragment : Fragment() {
     private lateinit var editNewItem: EditText
@@ -33,8 +34,10 @@ class NewShoppingItemFragment : Fragment() {
         editNewQuantity = view.findViewById(R.id.quantity_edit_text)
         saveButton.setOnClickListener {
             //TODO: Have this save the data in some way
-            if (editNewItem.text.toString() != "" && editNewQuantity.text.toString() != "") {
-                val newGroceryItem = Shopping(editNewItem.text.toString(), editNewQuantity.text.toString())
+            if (editNewItem.text.toString() != "") {
+
+                val newGroceryItem = Shopping(editNewItem.text.toString().lowercase()
+                    .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }, editNewQuantity.text.toString())
                 database = FirebaseDatabase.getInstance("https://purrito-planner-default-rtdb.firebaseio.com/").reference
                 database.child("Grocery List").child(newGroceryItem.name).setValue(newGroceryItem).addOnFailureListener {
                     Log.d("testFail", "failed to upload")
@@ -43,7 +46,7 @@ class NewShoppingItemFragment : Fragment() {
                 it.findNavController().navigateUp()
             }
             else {
-                Toast.makeText(getActivity(),"Enter Item and/or Quantity", Toast.LENGTH_SHORT).show()
+                Toast.makeText(getActivity(),"Enter Item Name!", Toast.LENGTH_SHORT).show()
             }
         }
 
