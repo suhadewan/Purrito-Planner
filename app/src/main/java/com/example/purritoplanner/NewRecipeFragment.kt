@@ -2,14 +2,21 @@ package com.example.purritoplanner
 
 import android.app.AlertDialog
 import android.content.DialogInterface.OnMultiChoiceClickListener
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import java.io.File
 
 
 class NewRecipeFragment : Fragment() {
@@ -81,6 +88,21 @@ class NewRecipeFragment : Fragment() {
         saveButton.setOnClickListener {
             //save final stuff to firebase
             it.findNavController().navigateUp()
+        }
+
+        val recipeImageHolder = view.findViewById<ImageView>(R.id.new_recipe_image)
+        val pickImages = registerForActivityResult(ActivityResultContracts.GetContent()){ uri: Uri? ->
+            uri?.let { it ->
+                Log.d("test", it.path!!)
+                Glide.with(this@NewRecipeFragment)
+                    .load(it)
+                    .fitCenter()
+                    .apply(RequestOptions().override(recipeImageHolder.width, recipeImageHolder.height))
+                    .into(recipeImageHolder)
+            }
+        }
+        recipeImageHolder.setOnClickListener {
+            pickImages.launch("image/*")
         }
 
         //Set up the edit text scroll settings.
