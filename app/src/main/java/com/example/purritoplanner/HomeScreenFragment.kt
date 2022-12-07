@@ -124,6 +124,10 @@ class HomeScreenFragment : Fragment() {
         when (selectedHat) {
             "TopHat" -> hatImage.setBackgroundResource(R.drawable.top_hat_thumbnail)
             "Nothing" -> hatImage.visibility = View.GONE
+            "PirateHat" -> hatImage.setBackgroundResource(R.drawable.pirate_hat_thumbnail)
+            "JesterCap" -> hatImage.setBackgroundResource(R.drawable.jester_hat_thumbnail)
+            "Tiara" -> hatImage.setBackgroundResource(R.drawable.tiara_origin_thumbnail)
+            "Bow" -> hatImage.setBackgroundResource(R.drawable.bow_thumbnail)
         }
 
         val selectedTheme = preferenceAccess.getBoolean("nightMode", false)
@@ -131,7 +135,6 @@ class HomeScreenFragment : Fragment() {
             true -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             false -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
-
 
         return view
     }

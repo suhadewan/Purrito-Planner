@@ -14,6 +14,9 @@ import androidx.navigation.findNavController
 
 class NewRecipeFragment : Fragment() {
 
+    private lateinit var cancelButton: Button
+    private lateinit var saveButton: Button
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -23,6 +26,9 @@ class NewRecipeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        cancelButton = view.findViewById(R.id.cancel_button)
+        saveButton = view.findViewById(R.id.save_button)
 
         //Sets up the ingredients recyclerview.
         //TODO: Add this.
@@ -36,7 +42,7 @@ class NewRecipeFragment : Fragment() {
             override fun onClick(view: View?) {
                 val builder = AlertDialog.Builder(activity)
                 builder.setTitle("Choose your recipe categories")
-                builder.setCancelable(false);
+                builder.setCancelable(false)
 
                 builder.setMultiChoiceItems(categoriesOptions, selectedOptions,
                     OnMultiChoiceClickListener { dialogInterface, pos, selected ->
@@ -68,10 +74,19 @@ class NewRecipeFragment : Fragment() {
             it.findNavController().navigate(R.id.action_newRecipeFragment_to_newGroceryItemFragment)
         }
 
+        cancelButton.setOnClickListener {
+            it.findNavController().navigateUp()
+        }
+
+        saveButton.setOnClickListener {
+            //save final stuff to firebase
+            it.findNavController().navigateUp()
+        }
+
         //Set up the edit text scroll settings.
         //view.findViewById<EditText>(R.id.recipe_edit_text).movementMethod = null
 
-        //eText.setMovementMethod(null);
+        //eText.setMovementMethod(null)
 
     }
 }

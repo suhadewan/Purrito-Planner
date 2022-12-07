@@ -33,7 +33,6 @@ class NewShoppingItemFragment : Fragment() {
         editNewItem = view.findViewById(R.id.new_item_edit_text)
         editNewQuantity = view.findViewById(R.id.quantity_edit_text)
         saveButton.setOnClickListener {
-            //TODO: Have this save the data in some way
             if (editNewItem.text.toString() != "") {
 
                 val newGroceryItem = Shopping(editNewItem.text.toString().lowercase()
@@ -42,7 +41,6 @@ class NewShoppingItemFragment : Fragment() {
                 database.child("Grocery List").child(newGroceryItem.name).setValue(newGroceryItem).addOnFailureListener {
                     Log.d("testFail", "failed to upload")
                 }
-                //have paradigm if name matches something in grocery list already?
                 it.findNavController().navigateUp()
             }
             else {

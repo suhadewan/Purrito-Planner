@@ -64,21 +64,22 @@ class RecipeListFragment : Fragment() {
         myDataset.add("Snack")
         myDataset.add("Dinner")
         myDataset.add("Drinks")
-        //myDataset.add("Dessert")
         myDataset.add("Quick and Easy")
         myDataset.add("On a Budget")
         viewAdapter.notifyDataSetChanged()
 
         //to add into recyclerview rn
-        val recipe = RecipeItem("Soup", "Carrots, Mushroom, Cream, Meat")
-        val recipe2 = RecipeItem("Brownies", "Flour, Sugar, Oil, Chocolate")
+        var ingredients = ArrayList<Ingredient>()
+        ingredients.add(Ingredient("Carrot"))
+        ingredients.add(Ingredient("Corn"))
+        val recipe = RecipeItem("Soup", ingredients)
+        val recipe2 = RecipeItem("Brownies", ingredients)
         database.child("Favorites").child(recipe.title).setValue(recipe)
         database.child("Favorites").child(recipe2.title).setValue(recipe2)
         database.child("Breakfast").child(recipe.title).setValue(recipe)
         database.child("Lunch").child(recipe.title).setValue(recipe)
         database.child("Snack").child(recipe.title).setValue(recipe)
         database.child("Dinner").child(recipe.title).setValue(recipe)
-        //database.child("Dessert").child(recipe.title).setValue(recipe)
         database.child("Quick and Easy").child(recipe.title).setValue(recipe)
         database.child("On a Budget").child(recipe.title).setValue(recipe)
     }
@@ -122,7 +123,6 @@ class RecyclerViewAdapter(private val myDataset: ArrayList<String>, private val 
                 "Drinks" -> initRecyclerView("Drinks", recipeRecyclerView)
                 "Quick and Easy" -> initRecyclerView("Quick and Easy", recipeRecyclerView)
                 "On a Budget" -> initRecyclerView("On a Budget", recipeRecyclerView)
-
             }
         }
 
@@ -166,7 +166,11 @@ class ChildRecyclerViewAdapter(private val myRecipes: MutableList<RecipeItem>, p
             val recipeIngredients: TextView = itemView.findViewById(R.id.Recipe_Ingredients)
             val recipeImage: ImageView = itemView.findViewById(R.id.Recipe_Image)
             recipeTitle.text = recipe.title
-            recipeIngredients.text = recipe.ingredients
+            var ingredientList = ""
+            for (ingredient in recipe.ingredients) {
+                ingredientList = ingredientList + ingredient.name.toString() + " "
+            }
+            recipeIngredients.text = ingredientList
             recipeImage.setImageResource(R.drawable.potato_soup)
             view.setOnClickListener {
                 view.findNavController().navigate(R.id.action_recipeListFragment_to_viewRecipeFragment)

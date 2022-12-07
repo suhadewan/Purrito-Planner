@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.navigation.findNavController
 
 class ChooseHatFragment : Fragment() {
@@ -21,6 +22,10 @@ class ChooseHatFragment : Fragment() {
     private lateinit var tiaraIcon: ImageView
     private lateinit var bowIcon: ImageView
     private lateinit var nothingIcon: ImageView
+    private lateinit var pirateHatLockIcon: ImageView
+    private lateinit var jesterHatLockIcon: ImageView
+    private lateinit var tiaraHatLockIcon: ImageView
+    private lateinit var bowHatLockIcon: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +43,11 @@ class ChooseHatFragment : Fragment() {
         tiaraIcon = view.findViewById(R.id.Tiara_Image)
         bowIcon = view.findViewById(R.id.Bow_Image)
         nothingIcon = view.findViewById(R.id.Nothing_Image)
+        pirateHatLockIcon = view.findViewById(R.id.Pirate_Hat_Lock)
+        jesterHatLockIcon = view.findViewById(R.id.Jester_Lock)
+        tiaraHatLockIcon = view.findViewById(R.id.Tiara_Lock)
+        bowHatLockIcon = view.findViewById(R.id.Bow_Lock)
+
 
         exitButton.setOnClickListener {
             view.findNavController().navigate(R.id.homeScreenFragment)
@@ -46,9 +56,42 @@ class ChooseHatFragment : Fragment() {
         val preferenceAccess = requireActivity().getSharedPreferences("pref", Context.MODE_PRIVATE)
         val editPreferences: SharedPreferences.Editor = preferenceAccess.edit()
         val selectedHat = preferenceAccess.getString("selectedHat", "Nothing")
+        val pirateLock = preferenceAccess.getBoolean("pirateLock", true)
+        val jesterLock = preferenceAccess.getBoolean("jesterLock", true)
+        val tiaraLock = preferenceAccess.getBoolean("tiaraLock", true)
+        val bowLock = preferenceAccess.getBoolean("bowLock", true)
         when (selectedHat) {
             "TopHat" -> topHatIcon.setBackgroundColor(Color.argb(75, 214, 53, 4))
             "Nothing" -> nothingIcon.setBackgroundColor(Color.argb(75, 214, 53, 4))
+            "PirateHat" -> pirateHatIcon.setBackgroundColor(Color.argb(75, 214, 53, 4))
+            "JesterCap" -> jesterCapIcon.setBackgroundColor(Color.argb(75, 214, 53, 4))
+            "Tiara" -> tiaraIcon.setBackgroundColor(Color.argb(75, 214, 53, 4))
+            "Bow" -> bowIcon.setBackgroundColor(Color.argb(75, 214, 53, 4))
+        }
+        //Set visibility of Locks on Hats
+        if (!pirateLock) {
+            pirateHatLockIcon.visibility = View.GONE
+        }
+        else {
+            pirateHatLockIcon.visibility = View.VISIBLE
+        }
+        if (!jesterLock) {
+            jesterHatLockIcon.visibility = View.GONE
+        }
+        else {
+            jesterHatLockIcon.visibility = View.VISIBLE
+        }
+        if (!tiaraLock) {
+            tiaraHatLockIcon.visibility = View.GONE
+        }
+        else {
+            tiaraHatLockIcon.visibility = View.VISIBLE
+        }
+        if (!bowLock) {
+            bowHatLockIcon.visibility = View.GONE
+        }
+        else {
+            bowHatLockIcon.visibility = View.VISIBLE
         }
 
         topHatIcon.setOnClickListener {
@@ -59,19 +102,51 @@ class ChooseHatFragment : Fragment() {
         }
 
         pirateHatIcon.setOnClickListener {
-
+            if (pirateLock) {
+                Toast.makeText(getActivity(),"Need to ... for Pirate Hat", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                unselectAll()
+                pirateHatIcon.setBackgroundColor(Color.argb(75, 214, 53, 4))
+                editPreferences.putString("selectedHat", "PirateHat")
+                editPreferences.commit()
+            }
         }
 
         jesterCapIcon.setOnClickListener {
+            if (jesterLock) {
+                Toast.makeText(getActivity(),"Need to ... for Jester Cap", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                unselectAll()
+                jesterCapIcon.setBackgroundColor(Color.argb(75, 214, 53, 4))
+                editPreferences.putString("selectedHat", "JesterCap")
+                editPreferences.commit()
 
+            }
         }
 
         tiaraIcon.setOnClickListener {
-
+            if (tiaraLock) {
+                Toast.makeText(getActivity(), "Need to ... for Tiara", Toast.LENGTH_SHORT).show()
+            } else {
+                unselectAll()
+                tiaraIcon.setBackgroundColor(Color.argb(75, 214, 53, 4))
+                editPreferences.putString("selectedHat", "Tiara")
+                editPreferences.commit()
+            }
         }
 
         bowIcon.setOnClickListener {
-
+            if (bowLock) {
+                Toast.makeText(getActivity(),"Need to ... for Bow", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                unselectAll()
+                bowIcon.setBackgroundColor(Color.argb(75, 214, 53, 4))
+                editPreferences.putString("selectedHat", "Bow")
+                editPreferences.commit()
+            }
         }
 
         nothingIcon.setOnClickListener {
@@ -87,5 +162,9 @@ class ChooseHatFragment : Fragment() {
     fun unselectAll() {
         topHatIcon.setBackgroundColor(Color.argb(0, 0, 0, 0))
         nothingIcon.setBackgroundColor(Color.argb(0, 0, 0, 0))
+        pirateHatIcon.setBackgroundColor(Color.argb(0, 0, 0, 0))
+        jesterCapIcon.setBackgroundColor(Color.argb(0, 0, 0, 0))
+        tiaraIcon.setBackgroundColor(Color.argb(0, 0, 0, 0))
+        bowIcon.setBackgroundColor(Color.argb(0, 0, 0, 0))
     }
 }
