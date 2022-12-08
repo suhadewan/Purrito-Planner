@@ -200,15 +200,14 @@ class NewRecipeFragment : Fragment() {
         val recipeURL = editRecipeURL.text.toString()
         val cookingNotes = editCookingNotes.text.toString()
         val ingredients = model.getIngredientList()
-        model.clearIngredientList()
         val newRecipeItem = RecipeItem(recipeTitle,
             ingredients as ArrayList<Ingredient>, categories, recipeURL, cookingNotes, imageLink)
-
         database = FirebaseDatabase.getInstance("https://purrito-planner-default-rtdb.firebaseio.com/").reference
         database.child("Test Recipes").child(newRecipeItem.title).setValue(newRecipeItem).addOnFailureListener {
             Log.d("testFail", "failed to upload")
         }.addOnSuccessListener {
             progress.dismiss()
+            model.clearIngredientList()
             view.findNavController().navigateUp()
         }
     }
