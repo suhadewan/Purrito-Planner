@@ -24,6 +24,10 @@ class MyViewModel: ViewModel() {
         ingredientList.removeAt(pos)
     }
 
+    fun clearIngredientList() {
+        ingredientList.clear()
+    }
+
     fun getRecipe(): RecipeItem {
         return recipe
     }

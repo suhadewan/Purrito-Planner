@@ -1,6 +1,7 @@
 package com.example.purritoplanner
 
 import android.app.AlertDialog
+import android.app.ProgressDialog
 import android.content.DialogInterface.OnMultiChoiceClickListener
 import android.graphics.Paint
 import android.net.Uri
@@ -98,12 +99,6 @@ class NewRecipeFragment : Fragment() {
                 builder.setMultiChoiceItems(categoriesOptions, selectedOptions,
                     OnMultiChoiceClickListener { dialogInterface, pos, selected ->
                         if (selected) selectionList.add(pos) else selectionList.remove(Integer.valueOf(pos))
-
-                        if (selected) selectionList.add(pos) else selectionList.remove(
-                            Integer.valueOf(
-                                pos
-                            )
-                        )
                     })
 
                 builder.setPositiveButton("OK") { dialogInterface, i ->
@@ -133,30 +128,12 @@ class NewRecipeFragment : Fragment() {
         }
 
         cancelButton.setOnClickListener {
+            model.clearIngredientList()
             it.findNavController().navigateUp()
         }
 
         saveButton.setOnClickListener {
-            if (editRecipeTitle.text.toString() != "") {
-                //save final stuff to firebase
-                val recipeTitle = editRecipeTitle.text.toString()
-                val recipeURL = editRecipeURL.text.toString()
-                val cookingNotes = editCookingNotes.text.toString()
-                val ingredients = model.getIngredientList()
-                save()
-                //categories
-                val newRecipeItem = RecipeItem(recipeTitle,
-                    ingredients as ArrayList<Ingredient>, categories, recipeURL, cookingNotes, "Bleh")
-                database = FirebaseDatabase.getInstance("https://purrito-planner-default-rtdb.firebaseio.com/").reference
-                database.child("Recipes").child(newRecipeItem.title).setValue(newRecipeItem).addOnFailureListener {
-                    Log.d("testFail", "failed to upload")
-                }
-                it.findNavController().navigateUp()
-            }
-            else {
-                Toast.makeText(getActivity(),"Enter Recipe Name!", Toast.LENGTH_SHORT).show()
-            }
-
+            saveToDatabase(it, categories)
         }
 
 
@@ -194,25 +171,54 @@ class NewRecipeFragment : Fragment() {
 
     }
 
-    private fun populateIngredientList() {
-        val ingredients = model.getIngredientList()
-        for (ingredient in ingredients) {
-            ingredientList.add(ingredient)
-        }
-        adapter.setIngredients(ingredientList as java.util.ArrayList<Ingredient>)
-    }
+    private fun saveToDatabase(view: View, categories: ArrayList<String>) {
 
-    private fun save() {
+        //Put a loading symbol on the screen while waiting on an upload.
+        val progress = ProgressDialog.show(requireActivity(), "Saving recipe", "Please wait...")
+
+        //Start by uploading the recipe image to firebase, if we have one.
+        //If we do, wait until we have the image link to continue. Otherwise,
+        //just put an empty string in palce of the image link.
         if (imageUri != null) {
             val fileName = imageUri?.pathSegments?.last()
             val uploadTask = storageRef.child("images/$fileName").putFile(imageUri!!)
             uploadTask.addOnSuccessListener {
                 it.metadata!!.reference!!.downloadUrl.addOnSuccessListener { uri ->
-                    Log.d("Test", uri.toString())
+                    saveRecipeToFirebase(view, uri.toString(), categories, progress)
                 }
             }
+        } else {
+            saveRecipeToFirebase(view, "", categories, progress)
         }
 
+    }
+
+    private fun saveRecipeToFirebase(view: View, imageLink: String, categories: ArrayList<String>, progress: ProgressDialog) {
+
+        //Collect all the data we need to store in firebase.
+        val recipeTitle = editRecipeTitle.text.toString()
+        val recipeURL = editRecipeURL.text.toString()
+        val cookingNotes = editCookingNotes.text.toString()
+        val ingredients = model.getIngredientList()
+        model.clearIngredientList()
+        val newRecipeItem = RecipeItem(recipeTitle,
+            ingredients as ArrayList<Ingredient>, categories, recipeURL, cookingNotes, imageLink)
+
+        database = FirebaseDatabase.getInstance("https://purrito-planner-default-rtdb.firebaseio.com/").reference
+        database.child("Test Recipes").child(newRecipeItem.title).setValue(newRecipeItem).addOnFailureListener {
+            Log.d("testFail", "failed to upload")
+        }.addOnSuccessListener {
+            progress.dismiss()
+            view.findNavController().navigateUp()
+        }
+    }
+
+    private fun populateIngredientList() {
+        val ingredients = model.getIngredientList() as ArrayList<Ingredient>
+        for (ingredient in ingredients) {
+            ingredientList.add(ingredient)
+        }
+        adapter.setIngredients(ingredientList as java.util.ArrayList<Ingredient>)
     }
 
     inner class IngredientListAdapter :
