@@ -98,10 +98,24 @@ class EditShoppingListFragment : Fragment() {
             val shoppingText = "${item.name} ${shoppingQuantity}"
             val deleteIcon = holder.view.findViewById<ImageView>(R.id.delete_icon)
 
+            if (item.purchased) {
+                checkBox.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                checkBox.isChecked = true
+            }
+            else {
+                checkBox.paintFlags = 0
+                checkBox.isChecked = false
+            }
             checkBox.text = shoppingText
             checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
                 checkBox.apply {
                     paintFlags = if (isChecked) (paintFlags or Paint.STRIKE_THRU_TEXT_FLAG) else (paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv())
+                }
+                if (isChecked) {
+                    database.child("Grocery List").child(item.name).child("purchased").setValue(true)
+                }
+                else {
+                    database.child("Grocery List").child(item.name).child("purchased").setValue(false)
                 }
             }
             deleteIcon.setOnClickListener {

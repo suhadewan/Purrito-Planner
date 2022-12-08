@@ -105,11 +105,26 @@ class ShoppingListFragment : Fragment() {
             val checkBox = holder.view.findViewById<CheckBox>(R.id.ingredient_check_box)
             val shoppingQuantity = if (item.quantity != "") ("(${item.quantity})") else ""
             val shoppingText = "${item.name} ${shoppingQuantity}"
+            if (item.purchased) {
+                checkBox.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                checkBox.isChecked = true
+            }
+            else {
+                checkBox.paintFlags = 0
+                checkBox.isChecked = false
+            }
 
             checkBox.text = shoppingText
             checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
                 checkBox.apply {
                     paintFlags = if (isChecked) (paintFlags or Paint.STRIKE_THRU_TEXT_FLAG) else (paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv())
+
+                }
+                if (isChecked) {
+                    database.child("Grocery List").child(item.name).child("purchased").setValue(true)
+                }
+                else {
+                    database.child("Grocery List").child(item.name).child("purchased").setValue(false)
                 }
             }
 
