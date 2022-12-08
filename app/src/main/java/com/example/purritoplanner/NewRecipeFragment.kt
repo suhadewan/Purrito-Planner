@@ -177,7 +177,7 @@ class NewRecipeFragment : Fragment() {
     private fun saveToDatabase(view: View, categories: ArrayList<String>) {
 
         //Put a loading symbol on the screen while waiting on an upload.
-        //ProgressDialog.show(requireActivity(), "Saving recipe", "Please wait...")
+        val progress = ProgressDialog.show(requireActivity(), "Saving recipe", "Please wait...")
 
         //Start by uploading the recipe image to firebase, if we have one.
         //If we do, wait until we have the image link to continue. Otherwise,
@@ -187,16 +187,16 @@ class NewRecipeFragment : Fragment() {
             val uploadTask = storageRef.child("images/$fileName").putFile(imageUri!!)
             uploadTask.addOnSuccessListener {
                 it.metadata!!.reference!!.downloadUrl.addOnSuccessListener { uri ->
-                    saveRecipeToFirebase(view, uri.toString(), categories)
+                    saveRecipeToFirebase(view, uri.toString(), categories, progress)
                 }
             }
         } else {
-            saveRecipeToFirebase(view, "", categories)
+            saveRecipeToFirebase(view, "", categories, progress)
         }
 
     }
 
-    private fun saveRecipeToFirebase(view: View, imageLink: String, categories: ArrayList<String>) {
+    private fun saveRecipeToFirebase(view: View, imageLink: String, categories: ArrayList<String>, progress: ProgressDialog) {
 
         //Collect all the data we need to store in firebase.
         val recipeTitle = editRecipeTitle.text.toString()
@@ -209,9 +209,10 @@ class NewRecipeFragment : Fragment() {
         database = FirebaseDatabase.getInstance("https://purrito-planner-default-rtdb.firebaseio.com/").reference
         database.child("Test Recipes").child(newRecipeItem.title).setValue(newRecipeItem).addOnFailureListener {
             Log.d("testFail", "failed to upload")
+        }.addOnSuccessListener {
+            progress.dismiss()
+            view.findNavController().navigateUp()
         }
-
-        view.findNavController().navigateUp()
     }
 
     private fun populateIngredientList() {
