@@ -8,11 +8,9 @@ import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +20,11 @@ class ViewRecipeFragment : Fragment() {
 
     private val adapter = IngredientsListAdapter()
     private var ingredientsList: MutableList<Ingredient> = ArrayList()
+    private lateinit var model: MyViewModel
+    private lateinit var recipeTitle: TextView
+    private lateinit var recipeTags: TextView
+    private lateinit var cookingNotes: TextView
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,12 +37,27 @@ class ViewRecipeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         //Sets up the ingredients recyclerview.
+        model = ViewModelProvider(requireActivity()).get(MyViewModel::class.java)
+        val recipeItem = model.getRecipe()
         val recyclerView = view.findViewById<RecyclerView>(R.id.ingredients_list)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
         ingredientsList = ArrayList()
         adapter.setIngredients(ingredientsList as ArrayList<Ingredient>)
-        populateIngredientsList()
+        populateIngredientsList(recipeItem)
+        recipeTitle = view.findViewById(R.id.recipe_title_text)
+        recipeTags = view.findViewById(R.id.recipe_tags_text)
+        cookingNotes = view.findViewById(R.id.cooking_notes)
+
+        val stringBuilder = StringBuilder()
+        for (category in recipeItem.categories) {
+            stringBuilder.append("${category}, ")
+        }
+        recipeTags.text = stringBuilder.toString().replace(",\\s\$".toRegex(), "")
+        recipeTitle.text = recipeItem.title
+        cookingNotes.text = recipeItem.cookingNotes
+
+
 
         //Allows the recipe link to be clickable.
         val recipeLink = view.findViewById<TextView>(R.id.recipe_link_text)
@@ -52,15 +70,11 @@ class ViewRecipeFragment : Fragment() {
         }
     }
 
-    private fun populateIngredientsList() {
-        ingredientsList.add(Ingredient("Uncooked bacon", "6 strips"))
-        ingredientsList.add(Ingredient("Unsalted butter", "3 tbsp"))
-        ingredientsList.add(Ingredient("Medium yellow onion"))
-        ingredientsList.add(Ingredient("Minced garlic cloves", "3 large"))
-        ingredientsList.add(Ingredient("Gold potatoes", "2 1/2 lbs"))
-        ingredientsList.add(Ingredient("Chicken broth", "4 cups"))
-        ingredientsList.add(Ingredient("Milk", "2 cups"))
-        ingredientsList.add(Ingredient("Heavy cream", "2/3 cup"))
+    private fun populateIngredientsList(recipe: RecipeItem) {
+        val ingredients = recipe.ingredients
+        for (ingredient in ingredients) {
+            ingredientsList.add(ingredient)
+        }
     }
 
     inner class IngredientsListAdapter :

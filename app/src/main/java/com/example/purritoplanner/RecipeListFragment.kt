@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.SearchView
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +22,7 @@ class RecipeListFragment : Fragment() {
     private val recipeHeaders = ArrayList<String>()
     private lateinit var addRecipeButton: ImageView
     private lateinit var settingsButton: ImageView
+    private lateinit var searchBar: SearchView
 
     private lateinit var database: DatabaseReference
 
@@ -41,6 +44,22 @@ class RecipeListFragment : Fragment() {
         addRecipeButton = view.findViewById(R.id.Add_Recipe_Button)
         settingsButton = view.findViewById(R.id.Recipe_Settings_Button)
         initArray(recipeHeaders)
+        searchBar = view.findViewById(R.id.Search_recipes)
+
+        searchBar.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                (viewAdapter as RecyclerViewAdapter).search(query!!)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText == "") {
+                    (viewAdapter as RecyclerViewAdapter).search("")
+                }
+                return true
+            }
+
+        })
 
 
 
@@ -85,7 +104,7 @@ class RecipeListFragment : Fragment() {
 
 class RecyclerViewAdapter(private val myDataset: ArrayList<String>, private val activity: MainActivity) :
     RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
-
+    private var recipeAdapters = ArrayList<ChildRecyclerViewAdapter>()
 
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): RecyclerViewAdapter.ViewHolder {
@@ -97,10 +116,16 @@ class RecyclerViewAdapter(private val myDataset: ArrayList<String>, private val 
         holder.bindItems(myDataset[position])
     }
 
+    fun search(query: String) {
+        for (adapter in recipeAdapters) {
+            adapter.searchThroughRecipes(query)
+        }
+    }
+
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = myDataset.size
 
-    class ViewHolder(private val view: View, private val activity: MainActivity) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(private val view: View, private val activity: MainActivity) : RecyclerView.ViewHolder(view) {
         private lateinit var database: DatabaseReference
         private val recipes = mutableListOf<RecipeItem>()
         fun bindItems(recipeHeaders: String) {
@@ -130,13 +155,12 @@ class RecyclerViewAdapter(private val myDataset: ArrayList<String>, private val 
                         for (snapshot in dataSnapshot.children) {
                             val recipeItem: RecipeItem? = snapshot.getValue(RecipeItem::class.java)
                             if (recipeItem!!.categories.contains(pathString)) {
-                                Log.d("testItems", pathString + ": " +recipeItem!!.title)
                                 recipes += recipeItem
                             }
                         }
-                        Log.d("testInit", recipes.toString())
                         val childRecipeAdapter = ChildRecyclerViewAdapter(recipes, activity as MainActivity)
                         recipeRecyclerView.adapter = childRecipeAdapter
+                        recipeAdapters.add(childRecipeAdapter)
                         childRecipeAdapter.notifyDataSetChanged()
                     }
                     override fun onCancelled(databaseError: DatabaseError) {}
@@ -146,8 +170,9 @@ class RecyclerViewAdapter(private val myDataset: ArrayList<String>, private val 
     }
 }
 
-class ChildRecyclerViewAdapter(private val myRecipes: MutableList<RecipeItem>, private val activity: MainActivity) :
+class ChildRecyclerViewAdapter(private var myRecipes: MutableList<RecipeItem>, private val activity: MainActivity) :
     RecyclerView.Adapter<ChildRecyclerViewAdapter.RecipeViewHolder>() {
+    private var backUpRecipes = myRecipes
 
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): ChildRecyclerViewAdapter.RecipeViewHolder {
@@ -156,11 +181,20 @@ class ChildRecyclerViewAdapter(private val myRecipes: MutableList<RecipeItem>, p
         return RecipeViewHolder(v, activity)
     }
 
+    fun searchThroughRecipes(query: String) {
+        Log.d("testQuery", query)
+        myRecipes = backUpRecipes
+        myRecipes = myRecipes.filter{ it.title.contains(query) } as MutableList<RecipeItem>
+        Log.d("testRecipes", myRecipes.toString())
+        notifyDataSetChanged()
+    }
+
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = myRecipes.size
 
     class RecipeViewHolder(private val view: View, private val activity: MainActivity) : RecyclerView.ViewHolder(view) {
         fun bindItems(recipe: RecipeItem) {
+            val model = ViewModelProvider(activity).get(MyViewModel::class.java)
             val recipeTitle: TextView = itemView.findViewById(R.id.Recipe_Title)
             val recipeIngredients: TextView = itemView.findViewById(R.id.Recipe_Ingredients)
             val recipeImage: ImageView = itemView.findViewById(R.id.Recipe_Image)
@@ -172,6 +206,7 @@ class ChildRecyclerViewAdapter(private val myRecipes: MutableList<RecipeItem>, p
             recipeIngredients.text = ingredientList
             recipeImage.setImageResource(R.drawable.potato_soup)
             view.setOnClickListener {
+                model.setRecipe(recipe)
                 view.findNavController().navigate(R.id.action_recipeListFragment_to_viewRecipeFragment)
             }
 

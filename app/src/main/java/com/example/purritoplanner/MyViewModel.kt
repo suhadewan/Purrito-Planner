@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 class MyViewModel: ViewModel() {
     private lateinit var ingredient: Ingredient
     private var ingredientList: MutableList<Ingredient> = java.util.ArrayList()
+    private lateinit var recipe: RecipeItem
 
     fun setIngredient(ingre: Ingredient) {
         ingredient = ingre
@@ -21,6 +22,14 @@ class MyViewModel: ViewModel() {
 
     fun deleteIngredient(pos: Int) {
         ingredientList.removeAt(pos)
+    }
+
+    fun getRecipe(): RecipeItem {
+        return recipe
+    }
+
+    fun setRecipe(rec: RecipeItem) {
+        recipe = rec
     }
 
 }

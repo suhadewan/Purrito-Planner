@@ -26,6 +26,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.io.File
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class NewRecipeFragment : Fragment() {
@@ -135,20 +137,26 @@ class NewRecipeFragment : Fragment() {
         }
 
         saveButton.setOnClickListener {
-            //save final stuff to firebase
-            val recipeTitle = editRecipeTitle.text.toString()
-            val recipeURL = editRecipeURL.text.toString()
-            val cookingNotes = editCookingNotes.text.toString()
-            val ingredients = model.getIngredientList()
-            save()
-            //categories
-            val newRecipeItem = RecipeItem(recipeTitle,
-                ingredients as ArrayList<Ingredient>, categories, recipeURL, cookingNotes, "Bleh")
-            database = FirebaseDatabase.getInstance("https://purrito-planner-default-rtdb.firebaseio.com/").reference
-            database.child("Test Recipes").child(newRecipeItem.title).setValue(newRecipeItem).addOnFailureListener {
-                Log.d("testFail", "failed to upload")
+            if (editRecipeTitle.text.toString() != "") {
+                //save final stuff to firebase
+                val recipeTitle = editRecipeTitle.text.toString()
+                val recipeURL = editRecipeURL.text.toString()
+                val cookingNotes = editCookingNotes.text.toString()
+                val ingredients = model.getIngredientList()
+                save()
+                //categories
+                val newRecipeItem = RecipeItem(recipeTitle,
+                    ingredients as ArrayList<Ingredient>, categories, recipeURL, cookingNotes, "Bleh")
+                database = FirebaseDatabase.getInstance("https://purrito-planner-default-rtdb.firebaseio.com/").reference
+                database.child("Recipes").child(newRecipeItem.title).setValue(newRecipeItem).addOnFailureListener {
+                    Log.d("testFail", "failed to upload")
+                }
+                it.findNavController().navigateUp()
             }
-            it.findNavController().navigateUp()
+            else {
+                Toast.makeText(getActivity(),"Enter Recipe Name!", Toast.LENGTH_SHORT).show()
+            }
+
         }
 
 
