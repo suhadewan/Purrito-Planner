@@ -177,7 +177,7 @@ class NewRecipeFragment : Fragment() {
     private fun saveToDatabase(view: View, categories: ArrayList<String>) {
 
         //Put a loading symbol on the screen while waiting on an upload.
-        ProgressDialog.show(requireActivity(), "Saving recipe", "Please wait...")
+        //ProgressDialog.show(requireActivity(), "Saving recipe", "Please wait...")
 
         //Start by uploading the recipe image to firebase, if we have one.
         //If we do, wait until we have the image link to continue. Otherwise,
