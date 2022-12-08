@@ -12,10 +12,13 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import java.io.File
 
 
@@ -23,6 +26,8 @@ class NewRecipeFragment : Fragment() {
 
     private lateinit var cancelButton: Button
     private lateinit var saveButton: Button
+    private lateinit var storageRef: StorageReference
+    private var imageUri: Uri? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +39,9 @@ class NewRecipeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        // Get a reference to where we'll be storing the photos.
+        storageRef = FirebaseStorage.getInstance().reference
+
         cancelButton = view.findViewById(R.id.cancel_button)
         saveButton = view.findViewById(R.id.save_button)
 
@@ -42,7 +50,16 @@ class NewRecipeFragment : Fragment() {
 
         //Set up the recipe categories dropdown.
         val dropDownText = view.findViewById<TextView>(R.id.recipe_category_text_views)
-        val categoriesOptions = arrayOf("Favorites", "Breakfast", "Lunch", "Snack", "Dinner", "Drinks", "Quick and Easy", "On a Budget")
+        val categoriesOptions = arrayOf(
+            "Favorites",
+            "Breakfast",
+            "Lunch",
+            "Snack",
+            "Dinner",
+            "Drinks",
+            "Quick and Easy",
+            "On a Budget"
+        )
         val selectionList: ArrayList<Int> = ArrayList()
         val selectedOptions = BooleanArray(categoriesOptions.size)
         dropDownText.setOnClickListener(object : View.OnClickListener {
@@ -53,7 +70,11 @@ class NewRecipeFragment : Fragment() {
 
                 builder.setMultiChoiceItems(categoriesOptions, selectedOptions,
                     OnMultiChoiceClickListener { dialogInterface, pos, selected ->
-                        if (selected) selectionList.add(pos) else selectionList.remove(Integer.valueOf(pos))
+                        if (selected) selectionList.add(pos) else selectionList.remove(
+                            Integer.valueOf(
+                                pos
+                            )
+                        )
                     })
 
                 builder.setPositiveButton("OK") { dialogInterface, i ->
@@ -90,25 +111,51 @@ class NewRecipeFragment : Fragment() {
             it.findNavController().navigateUp()
         }
 
+        //Handle picking an image from the gallery.
         val recipeImageHolder = view.findViewById<ImageView>(R.id.new_recipe_image)
-        val pickImages = registerForActivityResult(ActivityResultContracts.GetContent()){ uri: Uri? ->
-            uri?.let { it ->
-                Log.d("test", it.path!!)
-                Glide.with(this@NewRecipeFragment)
-                    .load(it)
-                    .fitCenter()
-                    .apply(RequestOptions().override(recipeImageHolder.width, recipeImageHolder.height))
-                    .into(recipeImageHolder)
+        val pickImages =
+            registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+                uri?.let { it ->
+                    Log.d("test", it.path!!)
+                    Glide.with(this@NewRecipeFragment)
+                        .load(it)
+                        .fitCenter()
+                        .apply(
+                            RequestOptions().override(
+                                recipeImageHolder.width,
+                                recipeImageHolder.height
+                            )
+                        )
+                        .into(recipeImageHolder)
+                    imageUri = it
+                }
             }
-        }
         recipeImageHolder.setOnClickListener {
             pickImages.launch("image/*")
+        }
+
+        //Handle saving the recipe.
+        view.findViewById<Button>(R.id.save_button).setOnClickListener {
+            save()
         }
 
         //Set up the edit text scroll settings.
         //view.findViewById<EditText>(R.id.recipe_edit_text).movementMethod = null
 
         //eText.setMovementMethod(null)
+
+    }
+
+    private fun save() {
+        if (imageUri != null) {
+            val fileName = imageUri?.pathSegments?.last()
+            val uploadTask = storageRef.child("images/$fileName").putFile(imageUri!!)
+            uploadTask.addOnSuccessListener {
+                it.metadata!!.reference!!.downloadUrl.addOnSuccessListener { uri ->
+                    Log.d("Test", uri.toString())
+                }
+            }
+        }
 
     }
 }
