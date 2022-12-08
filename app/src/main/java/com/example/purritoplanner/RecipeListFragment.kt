@@ -72,16 +72,13 @@ class RecipeListFragment : Fragment() {
         var ingredients = ArrayList<Ingredient>()
         ingredients.add(Ingredient("Carrot"))
         ingredients.add(Ingredient("Corn"))
-        val recipe = RecipeItem("Soup", ingredients)
-        val recipe2 = RecipeItem("Brownies", ingredients)
-        database.child("Favorites").child(recipe.title).setValue(recipe)
-        database.child("Favorites").child(recipe2.title).setValue(recipe2)
-        database.child("Breakfast").child(recipe.title).setValue(recipe)
-        database.child("Lunch").child(recipe.title).setValue(recipe)
-        database.child("Snack").child(recipe.title).setValue(recipe)
-        database.child("Dinner").child(recipe.title).setValue(recipe)
-        database.child("Quick and Easy").child(recipe.title).setValue(recipe)
-        database.child("On a Budget").child(recipe.title).setValue(recipe)
+        var categories = ArrayList<String>()
+        categories.add("Drinks")
+        categories.add("Quick and Easy")
+        val recipe = RecipeItem("Soup", ingredients, categories)
+        val recipe2 = RecipeItem("Brownies", ingredients, categories)
+        database.child("Recipes").child(recipe.title).setValue(recipe)
+        database.child("Recipes").child(recipe2.title).setValue(recipe2)
     }
 
 }
@@ -127,14 +124,15 @@ class RecyclerViewAdapter(private val myDataset: ArrayList<String>, private val 
         }
 
         private fun initRecyclerView(pathString: String, recipeRecyclerView: RecyclerView) {
-            database.child(pathString)
+            database.child("Recipes")
                 .addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         for (snapshot in dataSnapshot.children) {
                             val recipeItem: RecipeItem? = snapshot.getValue(RecipeItem::class.java)
-                            Log.d("testItems", pathString + ": " +recipeItem!!.title)
-                            recipes += recipeItem
-
+                            if (recipeItem!!.categories.contains(pathString)) {
+                                Log.d("testItems", pathString + ": " +recipeItem!!.title)
+                                recipes += recipeItem
+                            }
                         }
                         Log.d("testInit", recipes.toString())
                         val childRecipeAdapter = ChildRecyclerViewAdapter(recipes, activity as MainActivity)
@@ -144,6 +142,7 @@ class RecyclerViewAdapter(private val myDataset: ArrayList<String>, private val 
                     override fun onCancelled(databaseError: DatabaseError) {}
                 })
         }
+
     }
 }
 

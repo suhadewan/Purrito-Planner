@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -80,7 +81,6 @@ class ShoppingListFragment : Fragment() {
         private var groceries = mutableListOf<Shopping>()
 
         fun removeElement(pos: Int) {
-            //TODO: Remove from database when that gets hooked up
             groceries.removeAt(pos)
             adapter.notifyItemRemoved(pos)
         }

@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -33,6 +34,7 @@ class NewShoppingItemFragment : Fragment() {
         editNewItem = view.findViewById(R.id.new_item_edit_text)
         editNewQuantity = view.findViewById(R.id.quantity_edit_text)
         saveButton.setOnClickListener {
+
             if (editNewItem.text.toString() != "") {
 
                 val newGroceryItem = Shopping(editNewItem.text.toString().lowercase()
@@ -46,6 +48,7 @@ class NewShoppingItemFragment : Fragment() {
             else {
                 Toast.makeText(getActivity(),"Enter Item Name!", Toast.LENGTH_SHORT).show()
             }
+
         }
 
         view.findViewById<Button>(R.id.cancel_button).setOnClickListener {
