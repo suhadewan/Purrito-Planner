@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Paint
 import android.net.Uri
 import android.os.Bundle
+import android.text.Html
 import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.view.LayoutInflater
@@ -83,7 +84,12 @@ class ViewRecipeFragment : Fragment() {
 
         //Allows the recipe link to be clickable.
         val recipeLink = view.findViewById<TextView>(R.id.recipe_link_text)
-        recipeLink.movementMethod = LinkMovementMethod.getInstance()
+        if (recipeItem.recipeLink != "") {
+            recipeLink.text = Html.fromHtml("<a href=\"${recipeItem.recipeLink}\">View Recipe\non Internet</a>")
+            recipeLink.movementMethod = LinkMovementMethod.getInstance()
+        } else {
+            recipeLink.visibility = (View.INVISIBLE)
+        }
 
         //Allows us to navigate to the "edit recipe" page.
         view.findViewById<Button>(R.id.recipe_edit_button).setOnClickListener {

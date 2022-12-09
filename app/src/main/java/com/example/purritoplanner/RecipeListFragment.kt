@@ -1,5 +1,6 @@
 package com.example.purritoplanner
 
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -14,6 +15,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.database.*
 
 class RecipeListFragment : Fragment() {
@@ -205,7 +208,17 @@ class ChildRecyclerViewAdapter(private var myRecipes: MutableList<RecipeItem>, p
                 truncated = "...",
                 transform = { it.name }
             )
-            recipeImage.setImageResource(R.drawable.potato_soup)
+            //recipeImage.setImageResource(R.drawable.potato_soup)
+            Glide.with(activity)
+                .load(Uri.parse(recipe.recipeImage))
+                .fitCenter()
+                .apply(
+                    RequestOptions().override(
+                        recipeImage.width,
+                        recipeImage.height
+                    )
+                )
+                .into(recipeImage)
             view.setOnClickListener {
                 model.setRecipe(recipe)
                 view.findNavController().navigate(R.id.action_recipeListFragment_to_viewRecipeFragment)

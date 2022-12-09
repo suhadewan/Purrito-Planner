@@ -58,6 +58,9 @@
         <action
             android:id="@+id/action_newRecipeFragment_to_newGroceryItemFragment"
             app:destination="@id/newGroceryItemFragment" />
+        <action
+            android:id="@+id/action_newRecipeFragment_to_recipeListFragment"
+            app:destination="@id/recipeListFragment" />
     </fragment>
 
     <fragment

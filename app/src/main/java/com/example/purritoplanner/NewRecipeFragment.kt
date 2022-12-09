@@ -45,6 +45,7 @@ class NewRecipeFragment : Fragment() {
     private lateinit var database: DatabaseReference
     private lateinit var storageRef: StorageReference
     private var imageUri: Uri? = null
+    private var recipeToEdit: RecipeItem? =  null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -77,15 +78,18 @@ class NewRecipeFragment : Fragment() {
         val dropDownText = view.findViewById<TextView>(R.id.recipe_category_text_views)
 
         //Now, check to see if we were given a parcel that we can use.
-        val recipeToEdit = arguments?.getParcelable<RecipeItem>("recipeToEdit")
+        recipeToEdit = arguments?.getParcelable<RecipeItem>("recipeToEdit")
         if (recipeToEdit != null) {
             //Populate some of the fields, if we need to.
-            model.setCategories(recipeToEdit.categories)
-            model.setImageUri(Uri.parse(recipeToEdit.recipeImage))
-            model.setAllIngredients(recipeToEdit.ingredients)
-            editRecipeTitle.setText(recipeToEdit.title)
-            editRecipeURL.setText(recipeToEdit.recipeLink)
-            editCookingNotes.setText(recipeToEdit.cookingNotes)
+            model.setCategories(recipeToEdit!!.categories)
+            if (recipeToEdit!!.recipeImage != "") {
+                model.setImageUri(Uri.parse(recipeToEdit!!.recipeImage))
+                imageUri = model.getImageUri()
+            }
+            model.setAllIngredients(recipeToEdit!!.ingredients)
+            editRecipeTitle.setText(recipeToEdit!!.title)
+            editRecipeURL.setText(recipeToEdit!!.recipeLink)
+            editCookingNotes.setText(recipeToEdit!!.cookingNotes)
         }
 
         populateIngredientList()
@@ -121,6 +125,12 @@ class NewRecipeFragment : Fragment() {
         )
         val selectionList: ArrayList<Int> = ArrayList()
         val selectedOptions = BooleanArray(categoriesOptions.size)
+        if (model.getCategories().size > 0) {
+            for (category in model.getCategories()) {
+                selectedOptions[categoriesOptions.indexOf(category)] = true
+                selectionList.add(categoriesOptions.indexOf(category))
+            }
+        }
         dropDownText.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View?) {
                 val builder = AlertDialog.Builder(activity)
@@ -144,7 +154,7 @@ class NewRecipeFragment : Fragment() {
                         categories.add(categoriesOptions[index])
                     }
                     model.setCategories(categories)
-                    dropDownText.text = stringBuilder.toString().replace(",\\s\$".toRegex(), "")
+                    dropDownText.text = categories.joinToString(separator = ", ")
                 }
 
                 builder.setNegativeButton(
@@ -168,7 +178,8 @@ class NewRecipeFragment : Fragment() {
             model.clearIngredientList()
             model.setCategories(ArrayList<String>())
             model.setImageUri(null)
-            it.findNavController().navigateUp()
+            //it.findNavController().navigateUp()
+            it.findNavController().navigate(R.id.action_newRecipeFragment_to_recipeListFragment)
         }
 
         saveButton.setOnClickListener {
@@ -230,7 +241,7 @@ class NewRecipeFragment : Fragment() {
         //Start by uploading the recipe image to firebase, if we have one.
         //If we do, wait until we have the image link to continue. Otherwise,
         //just put an empty string in palce of the image link.
-        if (imageUri != null) {
+        if (imageUri != null && imageUri != Uri.parse(recipeToEdit?.recipeImage)) {
             val fileName = imageUri?.pathSegments?.last()
             val uploadTask = storageRef.child("images/$fileName").putFile(imageUri!!)
             uploadTask.addOnSuccessListener {
@@ -239,7 +250,8 @@ class NewRecipeFragment : Fragment() {
                 }
             }
         } else {
-            saveRecipeToFirebase(view, "", categories, progress)
+            val newImageLink = if (recipeToEdit != null) recipeToEdit!!.recipeImage else ""
+            saveRecipeToFirebase(view, newImageLink, categories, progress)
         }
 
     }
@@ -267,8 +279,9 @@ class NewRecipeFragment : Fragment() {
                 Log.d("testFail", "failed to upload")
             }.addOnSuccessListener {
             progress.dismiss()
+            model.setRecipe(newRecipeItem)
             model.clearIngredientList()
-            view.findNavController().navigateUp()
+            view.findNavController().navigate(R.id.action_newRecipeFragment_to_recipeListFragment)
         }
     }
 
