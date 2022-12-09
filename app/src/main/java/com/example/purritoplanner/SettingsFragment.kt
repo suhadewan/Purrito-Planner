@@ -1,6 +1,9 @@
 package com.example.purritoplanner
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -11,7 +14,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
-import com.google.android.material.button.MaterialButtonToggleGroup
+import java.util.*
 
 
 class SettingFragment : Fragment() {
@@ -55,7 +58,47 @@ class SettingFragment : Fragment() {
         objective3EditText.setText(preferenceAccess.getString("objective3", "Go grocery shopping"))
         objective4EditText.setText(preferenceAccess.getString("objective4", "Pet cat"))
 
-        pushNotificationsSwitch.setOnClickListener {
+        val isPush: Boolean = preferenceAccess.getBoolean("isPushNotif", false)
+        if (isPush) {
+            pushNotificationsSwitch.text="Turn off"
+            pushNotificationsSwitch.isChecked = true
+
+        }
+        else {
+            pushNotificationsSwitch.text="Turn on"
+            pushNotificationsSwitch.isChecked = false
+        }
+        pushNotificationsSwitch.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                true -> {
+                    //turn on push notifs
+                    Log.d("test", "Turned on push notifications")
+                    val notify = Intent(requireContext(), PushReceiver::class.java)
+                    val pendingIntent = PendingIntent.getBroadcast(context, 0, notify, PendingIntent.FLAG_IMMUTABLE)
+                    val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                    val calendar: Calendar = Calendar.getInstance()
+                    calendar.setTimeInMillis(System.currentTimeMillis())
+                    calendar.set(Calendar.HOUR_OF_DAY, 2)
+                    calendar.set(Calendar.MINUTE, 50)
+                    calendar.set(Calendar.SECOND, 1)
+                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent)
+                    pushNotificationsSwitch.isChecked = true
+                    pushNotificationsSwitch.text="Turn off"
+                    editPreferences.putBoolean("isPushNotif", true)
+                    editPreferences.commit()
+                }
+                false -> {
+                    Log.d("test", "turned off push notifications")
+                    val cancelNotify = Intent(requireContext(), PushReceiver::class.java)
+                    val pendingIntent = PendingIntent.getBroadcast(context, 0, cancelNotify, PendingIntent.FLAG_IMMUTABLE)
+                    val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                    alarmManager.cancel(pendingIntent)
+                    pushNotificationsSwitch.isChecked = false
+                    pushNotificationsSwitch.text="Turn on"
+                    editPreferences.putBoolean("isPushNotif", false)
+                    editPreferences.commit()
+                }
+            }
 
         }
         objective1ConfirmButton.setOnClickListener {
@@ -119,4 +162,5 @@ class SettingFragment : Fragment() {
 
         return view
     }
+
 }
