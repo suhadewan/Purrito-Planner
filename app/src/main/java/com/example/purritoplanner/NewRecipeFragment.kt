@@ -83,8 +83,16 @@ class NewRecipeFragment : Fragment() {
             //Populate some of the fields, if we need to.
             model.setCategories(recipeToEdit!!.categories)
             if (recipeToEdit!!.recipeImage != "") {
-                model.setImageUri(Uri.parse(recipeToEdit!!.recipeImage))
-                imageUri = model.getImageUri()
+                Glide.with(this@NewRecipeFragment)
+                    .load(Uri.parse(recipeToEdit!!.recipeImage))
+                    .fitCenter()
+                    .apply(
+                        RequestOptions().override(
+                            recipeImageHolder.width,
+                            recipeImageHolder.height
+                        )
+                    )
+                    .into(recipeImageHolder)
             }
             model.setAllIngredients(recipeToEdit!!.ingredients)
             editRecipeTitle.setText(recipeToEdit!!.title)
@@ -199,7 +207,6 @@ class NewRecipeFragment : Fragment() {
             }
         }
 
-
         //Handle picking an image from the gallery.
         val pickImages =
             registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
@@ -223,14 +230,6 @@ class NewRecipeFragment : Fragment() {
             pickImages.launch("image/*")
         }
 
-        //Handle saving the recipe.
-
-
-        //Set up the edit text scroll settings.
-        //view.findViewById<EditText>(R.id.recipe_edit_text).movementMethod = null
-
-        //eText.setMovementMethod(null)
-
     }
 
     private fun saveToDatabase(view: View, categories: ArrayList<String>) {
@@ -240,8 +239,8 @@ class NewRecipeFragment : Fragment() {
 
         //Start by uploading the recipe image to firebase, if we have one.
         //If we do, wait until we have the image link to continue. Otherwise,
-        //just put an empty string in palce of the image link.
-        if (imageUri != null && imageUri != Uri.parse(recipeToEdit?.recipeImage)) {
+        //just put an empty string in place of the image link.
+        if (imageUri != null) {
             val fileName = imageUri?.pathSegments?.last()
             val uploadTask = storageRef.child("images/$fileName").putFile(imageUri!!)
             uploadTask.addOnSuccessListener {
