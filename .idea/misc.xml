@@ -59,6 +59,7 @@
         <entry key="..\:/Users/suhad/Documents/mobile dev/final/Purrito-Planner/app/src/main/res/layout-land/fragment_settings.xml" value="0.21822916666666667" />
         <entry key="..\:/Users/suhad/Documents/mobile dev/final/Purrito-Planner/app/src/main/res/layout/activity_listview.xml" value="0.1" />
         <entry key="..\:/Users/suhad/Documents/mobile dev/final/Purrito-Planner/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/suhad/Documents/mobile dev/final/Purrito-Planner/app/src/main/res/layout/add_meal.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/suhad/Documents/mobile dev/final/Purrito-Planner/app/src/main/res/layout/box.xml" value="0.1" />
         <entry key="..\:/Users/suhad/Documents/mobile dev/final/Purrito-Planner/app/src/main/res/layout/card_view_days.xml" value="0.2" />
         <entry key="..\:/Users/suhad/Documents/mobile dev/final/Purrito-Planner/app/src/main/res/layout/card_view_shop.xml" value="0.1875" />
@@ -78,6 +79,8 @@
         <entry key="..\:/Users/suhad/Documents/mobile dev/final/Purrito-Planner/app/src/main/res/layout/fragment_shopping_list.xml" value="0.25" />
         <entry key="..\:/Users/suhad/Documents/mobile dev/final/Purrito-Planner/app/src/main/res/layout/fragment_shoppinglist.xml" value="0.1875" />
         <entry key="..\:/Users/suhad/Documents/mobile dev/final/Purrito-Planner/app/src/main/res/layout/fragment_view_recipe.xml" value="0.25" />
+        <entry key="..\:/Users/suhad/Documents/mobile dev/final/Purrito-Planner/app/src/main/res/layout/recipe_card_view.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/suhad/Documents/mobile dev/final/Purrito-Planner/app/src/main/res/layout/recipe_header_view.xml" value="0.18802083333333333" />
       </map>
     </option>
   </component>

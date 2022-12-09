@@ -49,7 +49,16 @@ class CalendarFragment : Fragment() {
                 ) { _, _ ->
                     val index = weekdayClicked()
                     val textString = editT.text.toString()
-                    update(index, textString)
+                    if (editT.text.toString() == "") {
+                        Toast.makeText(
+                            activity,
+                            "You must enter a meal!",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                    else {
+                        update(index, textString)
+                    }
                 }?.setNegativeButton("Cancel", null)?.create()
                 builder?.show()
             } else {
@@ -61,7 +70,16 @@ class CalendarFragment : Fragment() {
                 }
                 builder?.setPositiveButton("Done"
                 ) { _, _ ->
-                    update(idx, editT.text.toString())
+                    if (editT.text.toString() == "") {
+                        Toast.makeText(
+                            activity,
+                            "You must enter a meal!",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                    else {
+                        update(idx, editT.text.toString())
+                    }
                 }
                 builder?.setNegativeButton("Cancel", null)?.setView(editT)
                 builder?.create()?.show()
