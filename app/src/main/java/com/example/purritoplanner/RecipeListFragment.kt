@@ -199,11 +199,12 @@ class ChildRecyclerViewAdapter(private var myRecipes: MutableList<RecipeItem>, p
             val recipeIngredients: TextView = itemView.findViewById(R.id.Recipe_Ingredients)
             val recipeImage: ImageView = itemView.findViewById(R.id.Recipe_Image)
             recipeTitle.text = recipe.title
-            var ingredientList = ""
-            for (ingredient in recipe.ingredients) {
-                ingredientList = ingredientList + ingredient.name.toString() + " "
-            }
-            recipeIngredients.text = ingredientList
+            recipeIngredients.text = recipe.ingredients.joinToString(
+                separator = ", ",
+                limit = 3,
+                truncated = "...",
+                transform = { it.name }
+            )
             recipeImage.setImageResource(R.drawable.potato_soup)
             view.setOnClickListener {
                 model.setRecipe(recipe)

@@ -5,6 +5,7 @@ import android.graphics.Paint
 import android.net.Uri
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import java.util.ArrayList
 
 class ViewRecipeFragment : Fragment() {
@@ -24,7 +29,9 @@ class ViewRecipeFragment : Fragment() {
     private lateinit var recipeTitle: TextView
     private lateinit var recipeTags: TextView
     private lateinit var cookingNotes: TextView
+    private lateinit var recipeImage: ImageView
 
+    private lateinit var database: DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +42,9 @@ class ViewRecipeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        database =
+            FirebaseDatabase.getInstance("https://purrito-planner-default-rtdb.firebaseio.com/").reference
 
         //Sets up the ingredients recyclerview.
         model = ViewModelProvider(requireActivity()).get(MyViewModel::class.java)
@@ -48,6 +58,7 @@ class ViewRecipeFragment : Fragment() {
         recipeTitle = view.findViewById(R.id.recipe_title_text)
         recipeTags = view.findViewById(R.id.recipe_tags_text)
         cookingNotes = view.findViewById(R.id.cooking_notes)
+        recipeImage = view.findViewById(R.id.imageView)
 
         val stringBuilder = StringBuilder()
         for (category in recipeItem.categories) {
@@ -56,7 +67,18 @@ class ViewRecipeFragment : Fragment() {
         recipeTags.text = stringBuilder.toString().replace(",\\s\$".toRegex(), "")
         recipeTitle.text = recipeItem.title
         cookingNotes.text = recipeItem.cookingNotes
-
+        if (recipeItem.recipeImage != "") {
+            Glide.with(this@ViewRecipeFragment)
+                .load(Uri.parse(recipeItem.recipeImage))
+                .fitCenter()
+                .apply(
+                    RequestOptions().override(
+                        recipeImage.width,
+                        recipeImage.height
+                    )
+                )
+                .into(recipeImage)
+        }
 
 
         //Allows the recipe link to be clickable.
@@ -64,9 +86,22 @@ class ViewRecipeFragment : Fragment() {
         recipeLink.movementMethod = LinkMovementMethod.getInstance()
 
         //Allows us to navigate to the "edit recipe" page.
-        //TODO: We need to make recipes parcelable and send the recipe over in a bundle.
         view.findViewById<Button>(R.id.recipe_edit_button).setOnClickListener {
-            it.findNavController().navigate(R.id.action_viewRecipeFragment_to_newRecipeFragment)
+            val selectedElementData = Bundle()
+            selectedElementData.putParcelable("recipeToEdit", recipeItem)
+            it.findNavController().navigate(R.id.action_viewRecipeFragment_to_newRecipeFragment, selectedElementData)
+        }
+
+        //Allows us to add ingredients to the shopping list.
+        view.findViewById<Button>(R.id.recipe_to_grocery_button).setOnClickListener {
+            for (newGroceryItem in recipeItem.ingredients) {
+                database.child("Grocery List").child(newGroceryItem.name).setValue(newGroceryItem)
+            }
+            Toast.makeText(
+                activity,
+                "Ingredients added to shopping list!",
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 
@@ -80,12 +115,6 @@ class ViewRecipeFragment : Fragment() {
     inner class IngredientsListAdapter :
         RecyclerView.Adapter<IngredientsListAdapter.IngredientViewHolder>() {
         private var ingredients = mutableListOf<Ingredient>()
-
-        fun removeElement(pos: Int) {
-            //TODO: Remove from database when that gets hooked up
-            ingredients.removeAt(pos)
-            adapter.notifyItemRemoved(pos);
-        }
 
         internal fun setIngredients(ingredients: ArrayList<Ingredient>) {
             this.ingredients = ingredients

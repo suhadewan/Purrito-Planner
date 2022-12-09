@@ -63,7 +63,7 @@ class NewRecipeFragment : Fragment() {
         saveButton = view.findViewById(R.id.save_button)
         model = ViewModelProvider(requireActivity()).get(MyViewModel::class.java)
 
-        //Sets up the ingredients recyclerview.
+        //Sets up the some references we'll be needing later.
         val recyclerView = view.findViewById<RecyclerView>(R.id.ingredients_list)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
@@ -72,12 +72,43 @@ class NewRecipeFragment : Fragment() {
         editRecipeTitle = view.findViewById(R.id.recipe_title_edit_text)
         editRecipeURL = view.findViewById(R.id.recipe_link_edit_text)
         editCookingNotes = view.findViewById(R.id.recipe_edit_text)
+        val recipeImageHolder = view.findViewById<ImageView>(R.id.new_recipe_image)
+        var categories = ArrayList<String>()
+        val dropDownText = view.findViewById<TextView>(R.id.recipe_category_text_views)
+
+        //Now, check to see if we were given a parcel that we can use.
+        val recipeToEdit = arguments?.getParcelable<RecipeItem>("recipeToEdit")
+        if (recipeToEdit != null) {
+            //Populate some of the fields, if we need to.
+            model.setCategories(recipeToEdit.categories)
+            model.setImageUri(Uri.parse(recipeToEdit.recipeImage))
+            model.setAllIngredients(recipeToEdit.ingredients)
+            editRecipeTitle.setText(recipeToEdit.title)
+            editRecipeURL.setText(recipeToEdit.recipeLink)
+            editCookingNotes.setText(recipeToEdit.cookingNotes)
+        }
+
         populateIngredientList()
 
+        //If not, check if we have data stored in the viewmodel to use.
+        if (model.getCategories().size > 0) {
+            categories = model.getCategories()
+            dropDownText.text = categories.joinToString(separator = ", ")
+        }
+        if (model.getImageUri() != null) {
+            Glide.with(this@NewRecipeFragment)
+                .load(model.getImageUri())
+                .fitCenter()
+                .apply(
+                    RequestOptions().override(
+                        recipeImageHolder.width,
+                        recipeImageHolder.height
+                    )
+                )
+                .into(recipeImageHolder)
+        }
 
-        val categories = ArrayList<String>()
         //Set up the recipe categories dropdown.
-        val dropDownText = view.findViewById<TextView>(R.id.recipe_category_text_views)
         val categoriesOptions = arrayOf(
             "Favorites",
             "Breakfast",
@@ -98,15 +129,21 @@ class NewRecipeFragment : Fragment() {
 
                 builder.setMultiChoiceItems(categoriesOptions, selectedOptions,
                     OnMultiChoiceClickListener { dialogInterface, pos, selected ->
-                        if (selected) selectionList.add(pos) else selectionList.remove(Integer.valueOf(pos))
+                        if (selected) selectionList.add(pos) else selectionList.remove(
+                            Integer.valueOf(
+                                pos
+                            )
+                        )
                     })
 
                 builder.setPositiveButton("OK") { dialogInterface, i ->
                     val stringBuilder = StringBuilder()
+                    categories = ArrayList<String>()
                     for (index in selectionList) {
                         stringBuilder.append("${categoriesOptions[index]}, ")
                         categories.add(categoriesOptions[index])
                     }
+                    model.setCategories(categories)
                     dropDownText.text = stringBuilder.toString().replace(",\\s\$".toRegex(), "")
                 }
 
@@ -129,17 +166,30 @@ class NewRecipeFragment : Fragment() {
 
         cancelButton.setOnClickListener {
             model.clearIngredientList()
+            model.setCategories(ArrayList<String>())
+            model.setImageUri(null)
             it.findNavController().navigateUp()
         }
 
         saveButton.setOnClickListener {
-            saveToDatabase(it, categories)
+            //Start by ensuring that everything we need has been populated.
+            //We need at least one category and a recipe title.
+            //If we meet these conditions, then go ahead and save/close.
+            if (editRecipeTitle.text.toString() == "" || categories.size == 0) {
+                Toast.makeText(
+                    activity,
+                    "You must enter a recipe title and >1 category!",
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
+                model.setCategories(ArrayList<String>())
+                model.setImageUri(null)
+                saveToDatabase(it, categories)
+            }
         }
 
 
-
         //Handle picking an image from the gallery.
-        val recipeImageHolder = view.findViewById<ImageView>(R.id.new_recipe_image)
         val pickImages =
             registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
                 uri?.let { it ->
@@ -155,6 +205,7 @@ class NewRecipeFragment : Fragment() {
                         )
                         .into(recipeImageHolder)
                     imageUri = it
+                    model.setImageUri(it)
                 }
             }
         recipeImageHolder.setOnClickListener {
@@ -193,19 +244,28 @@ class NewRecipeFragment : Fragment() {
 
     }
 
-    private fun saveRecipeToFirebase(view: View, imageLink: String, categories: ArrayList<String>, progress: ProgressDialog) {
+    private fun saveRecipeToFirebase(
+        view: View,
+        imageLink: String,
+        categories: ArrayList<String>,
+        progress: ProgressDialog
+    ) {
 
         //Collect all the data we need to store in firebase.
         val recipeTitle = editRecipeTitle.text.toString()
         val recipeURL = editRecipeURL.text.toString()
         val cookingNotes = editCookingNotes.text.toString()
         val ingredients = model.getIngredientList()
-        val newRecipeItem = RecipeItem(recipeTitle,
-            ingredients as ArrayList<Ingredient>, categories, recipeURL, cookingNotes, imageLink)
-        database = FirebaseDatabase.getInstance("https://purrito-planner-default-rtdb.firebaseio.com/").reference
-        database.child("Test Recipes").child(newRecipeItem.title).setValue(newRecipeItem).addOnFailureListener {
-            Log.d("testFail", "failed to upload")
-        }.addOnSuccessListener {
+        val newRecipeItem = RecipeItem(
+            recipeTitle,
+            ingredients as ArrayList<Ingredient>, categories, recipeURL, cookingNotes, imageLink
+        )
+        database =
+            FirebaseDatabase.getInstance("https://purrito-planner-default-rtdb.firebaseio.com/").reference
+        database.child("Recipes").child(newRecipeItem.title).setValue(newRecipeItem)
+            .addOnFailureListener {
+                Log.d("testFail", "failed to upload")
+            }.addOnSuccessListener {
             progress.dismiss()
             model.clearIngredientList()
             view.findNavController().navigateUp()
