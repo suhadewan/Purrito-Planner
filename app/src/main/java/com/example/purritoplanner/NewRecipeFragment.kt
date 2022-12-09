@@ -46,6 +46,7 @@ class NewRecipeFragment : Fragment() {
     private lateinit var storageRef: StorageReference
     private var imageUri: Uri? = null
     private var recipeToEdit: RecipeItem? =  null
+    private var prevRecipeToEdit: RecipeItem? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,6 +80,7 @@ class NewRecipeFragment : Fragment() {
 
         //Now, check to see if we were given a parcel that we can use.
         recipeToEdit = arguments?.getParcelable<RecipeItem>("recipeToEdit")
+        prevRecipeToEdit = arguments?.getParcelable<RecipeItem>("recipeToEdit")
         if (recipeToEdit != null) {
             //Populate some of the fields, if we need to.
             model.setCategories(recipeToEdit!!.categories)
@@ -273,6 +275,10 @@ class NewRecipeFragment : Fragment() {
         )
         database =
             FirebaseDatabase.getInstance("https://purrito-planner-default-rtdb.firebaseio.com/").reference
+        if (prevRecipeToEdit != null) {
+            var firebasePostRef = database.child("Recipes").child(prevRecipeToEdit!!.title)
+            firebasePostRef.removeValue()
+        }
         database.child("Recipes").child(newRecipeItem.title).setValue(newRecipeItem)
             .addOnFailureListener {
                 Log.d("testFail", "failed to upload")
