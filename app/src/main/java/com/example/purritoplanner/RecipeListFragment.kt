@@ -108,6 +108,7 @@ class RecipeListFragment : Fragment() {
 class RecyclerViewAdapter(private val myDataset: ArrayList<String>, private val activity: MainActivity) :
     RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
     private var recipeAdapters = ArrayList<ChildRecyclerViewAdapter>()
+    private var searchTerm:String = ""
 
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): RecyclerViewAdapter.ViewHolder {
@@ -120,6 +121,8 @@ class RecyclerViewAdapter(private val myDataset: ArrayList<String>, private val 
     }
 
     fun search(query: String) {
+        Log.d("test", recipeAdapters.size.toString())
+        searchTerm = query
         for (adapter in recipeAdapters) {
             adapter.searchThroughRecipes(query)
         }
@@ -139,32 +142,35 @@ class RecyclerViewAdapter(private val myDataset: ArrayList<String>, private val 
             database = FirebaseDatabase.getInstance().reference
             recipeRecyclerView.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
             recipeRecyclerView.adapter = EmptyRecyclerViewAdapter(activity as MainActivity)
+            Log.d("test", recipeHeaders)
             when (recipeHeaders) {
-                "Favorites" -> initRecyclerView("Favorites", recipeRecyclerView)
-                "Breakfast" -> initRecyclerView("Breakfast", recipeRecyclerView)
-                "Lunch" -> initRecyclerView("Lunch", recipeRecyclerView)
-                "Snack" -> initRecyclerView("Snack", recipeRecyclerView)
-                "Dinner" -> initRecyclerView("Dinner", recipeRecyclerView)
-                "Drinks" -> initRecyclerView("Drinks", recipeRecyclerView)
-                "Quick and Easy" -> initRecyclerView("Quick and Easy", recipeRecyclerView)
-                "On a Budget" -> initRecyclerView("On a Budget", recipeRecyclerView)
+                "Favorites" -> initRecyclerView("Favorites", recipeRecyclerView, searchTerm)
+                "Breakfast" -> initRecyclerView("Breakfast", recipeRecyclerView, searchTerm)
+                "Lunch" -> initRecyclerView("Lunch", recipeRecyclerView, searchTerm)
+                "Snack" -> initRecyclerView("Snack", recipeRecyclerView, searchTerm)
+                "Dinner" -> initRecyclerView("Dinner", recipeRecyclerView, searchTerm)
+                "Drinks" -> initRecyclerView("Drinks", recipeRecyclerView, searchTerm)
+                "Quick and Easy" -> initRecyclerView("Quick and Easy", recipeRecyclerView, searchTerm)
+                "On a Budget" -> initRecyclerView("On a Budget", recipeRecyclerView, searchTerm)
             }
         }
 
-        private fun initRecyclerView(pathString: String, recipeRecyclerView: RecyclerView) {
+        private fun initRecyclerView(pathString: String, recipeRecyclerView: RecyclerView, search: String) {
             database.child("Recipes")
                 .addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         for (snapshot in dataSnapshot.children) {
                             val recipeItem: RecipeItem? = snapshot.getValue(RecipeItem::class.java)
                             if (recipeItem!!.categories.contains(pathString)) {
-                                recipes += recipeItem
+                                if (search == "" || recipeItem.title.contains(search)) {
+                                    recipes += recipeItem
+                                }
                             }
                         }
                         val childRecipeAdapter = ChildRecyclerViewAdapter(recipes, activity as MainActivity)
                         recipeRecyclerView.adapter = childRecipeAdapter
                         recipeAdapters.add(childRecipeAdapter)
-                        childRecipeAdapter.notifyDataSetChanged()
+                        Log.d("test", "What's going on")
                     }
                     override fun onCancelled(databaseError: DatabaseError) {}
                 })
