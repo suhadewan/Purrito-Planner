@@ -305,6 +305,7 @@ class NewRecipeFragment : Fragment() {
         fun removeElement(pos: Int) {
             ingredients.removeAt(pos)
             adapter.notifyItemRemoved(pos)
+            notifyDataSetChanged()
         }
 
         internal fun setIngredients(groceries: java.util.ArrayList<Ingredient>) {
