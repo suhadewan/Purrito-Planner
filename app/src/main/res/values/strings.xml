@@ -41,4 +41,21 @@
     <string name="tiara">Tiara</string>
     <string name="bow">Bow</string>
     <string name="nothing">Nothing</string>
+    <string name="planner_title">Weekly Meal Plan</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+    <string name="add_button_title">Add Meal</string>
+    <string name="clear_button_title">Clear Meals</string>
+    <string name="m">M</string>
+    <string name="tu">Tu</string>
+    <string name="w">W</string>
+    <string name="th">Th</string>
+    <string name="f">F</string>
+    <string name="sa">Sa</string>
+    <string name="su">Su</string>
 </resources>

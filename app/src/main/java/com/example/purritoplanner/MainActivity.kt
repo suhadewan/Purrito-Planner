@@ -7,7 +7,7 @@ import android.widget.ImageButton
 import androidx.navigation.findNavController
 
 class MainActivity : AppCompatActivity() {
-
+    var newMeals: ArrayList<String> = arrayListOf()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
