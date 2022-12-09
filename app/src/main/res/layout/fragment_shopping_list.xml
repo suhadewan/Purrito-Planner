@@ -28,10 +28,10 @@
             android:id="@+id/editButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="#D1D1D1"
             android:layout_margin="16dp"
             android:layout_weight="1"
-            android:text="Edit" />
+            android:backgroundTint="#D1D1D1"
+            android:text="@string/edit" />
 
         <ImageView
             android:id="@+id/Shopping_Settings_Button"
@@ -53,7 +53,7 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="My Shopping List"
+            android:text="@string/my_shopping_list"
             android:textSize="20sp"
             app:layout_constraintTop_toBottomOf="@+id/editButton" />
 

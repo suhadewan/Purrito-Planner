@@ -23,12 +23,17 @@
         <entry key="..\:/Users/kitca/AndroidStudioProjects/Purrito-Planner/app/src/main/res/layout/recipe_card_view.xml" value="0.264" />
         <entry key="..\:/Users/kitca/AndroidStudioProjects/Purrito-Planner/app/src/main/res/layout/recipe_header_view.xml" value="0.264" />
         <entry key="..\:/Users/kitca/AndroidStudioProjects/Purrito-Planner/app/src/main/res/menu/bottom_nav_menu.xml" value="0.2859375" />
-        <entry key="..\:/Users/sarae/Documents/Purrito-Planner/app/src/main/res/layout/card_view_shop_edit.xml" value="0.1" />
-        <entry key="..\:/Users/sarae/Documents/Purrito-Planner/app/src/main/res/layout/fragment_choose_hat.xml" value="0.1" />
+        <entry key="..\:/Users/sarae/Documents/Purrito-Planner/app/src/main/res/layout/card_view_shop.xml" value="0.1" />
+        <entry key="..\:/Users/sarae/Documents/Purrito-Planner/app/src/main/res/layout/card_view_shop_edit.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/sarae/Documents/Purrito-Planner/app/src/main/res/layout/fragment_choose_hat.xml" value="0.22" />
+        <entry key="..\:/Users/sarae/Documents/Purrito-Planner/app/src/main/res/layout/fragment_edit_shopping_list.xml" value="0.1796875" />
+        <entry key="..\:/Users/sarae/Documents/Purrito-Planner/app/src/main/res/layout/fragment_home_screen.xml" value="0.22" />
+        <entry key="..\:/Users/sarae/Documents/Purrito-Planner/app/src/main/res/layout/fragment_new_grocery_item.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/sarae/Documents/Purrito-Planner/app/src/main/res/layout/fragment_new_recipe.xml" value="0.14666666666666667" />
         <entry key="..\:/Users/sarae/Documents/Purrito-Planner/app/src/main/res/layout/fragment_new_shopping_item.xml" value="0.1796875" />
         <entry key="..\:/Users/sarae/Documents/Purrito-Planner/app/src/main/res/layout/fragment_recipe_list.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/sarae/Documents/Purrito-Planner/app/src/main/res/layout/fragment_settings.xml" value="0.22" />
+        <entry key="..\:/Users/sarae/Documents/Purrito-Planner/app/src/main/res/layout/fragment_shopping_list.xml" value="0.1796875" />
         <entry key="..\:/Users/sarae/Documents/Purrito-Planner/app/src/main/res/layout/fragment_view_recipe.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/suhad/Documents/mobile dev/final project/Purrito-Planner/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/suhad/Documents/mobile dev/final project/Purrito-Planner/app/src/main/res/layout/card_view_days.xml" value="0.25" />

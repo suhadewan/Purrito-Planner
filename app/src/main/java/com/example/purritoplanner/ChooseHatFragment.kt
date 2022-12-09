@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -69,6 +70,7 @@ class ChooseHatFragment : Fragment() {
             "Bow" -> bowIcon.setBackgroundColor(Color.argb(75, 214, 53, 4))
         }
         //Set visibility of Locks on Hats
+        Log.d("jesterLock", jesterLock.toString())
         if (!pirateLock) {
             pirateHatLockIcon.visibility = View.GONE
         }
@@ -103,7 +105,7 @@ class ChooseHatFragment : Fragment() {
 
         pirateHatIcon.setOnClickListener {
             if (pirateLock) {
-                Toast.makeText(getActivity(),"Need to ... for Pirate Hat", Toast.LENGTH_SHORT).show()
+                Toast.makeText(getActivity(),"Need to Pet Cat for Pirate Hat", Toast.LENGTH_SHORT).show()
             }
             else {
                 unselectAll()
@@ -115,12 +117,14 @@ class ChooseHatFragment : Fragment() {
 
         jesterCapIcon.setOnClickListener {
             if (jesterLock) {
-                Toast.makeText(getActivity(),"Need to ... for Jester Cap", Toast.LENGTH_SHORT).show()
+                Toast.makeText(getActivity(),"Need to Try Night Mode for Jester Cap", Toast.LENGTH_SHORT).show()
             }
             else {
                 unselectAll()
                 jesterCapIcon.setBackgroundColor(Color.argb(75, 214, 53, 4))
                 editPreferences.putString("selectedHat", "JesterCap")
+                editPreferences.putBoolean("tiaraLock", false)
+                tiaraHatLockIcon.visibility = View.GONE
                 editPreferences.commit()
 
             }
@@ -128,7 +132,7 @@ class ChooseHatFragment : Fragment() {
 
         tiaraIcon.setOnClickListener {
             if (tiaraLock) {
-                Toast.makeText(getActivity(), "Need to ... for Tiara", Toast.LENGTH_SHORT).show()
+                Toast.makeText(getActivity(), "Need to Wear Jester Cap for Tiara", Toast.LENGTH_SHORT).show()
             } else {
                 unselectAll()
                 tiaraIcon.setBackgroundColor(Color.argb(75, 214, 53, 4))
@@ -139,7 +143,7 @@ class ChooseHatFragment : Fragment() {
 
         bowIcon.setOnClickListener {
             if (bowLock) {
-                Toast.makeText(getActivity(),"Need to ... for Bow", Toast.LENGTH_SHORT).show()
+                Toast.makeText(getActivity(),"Need to 100% Weekly Objectives for Bow", Toast.LENGTH_SHORT).show()
             }
             else {
                 unselectAll()

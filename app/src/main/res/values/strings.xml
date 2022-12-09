@@ -9,4 +9,36 @@
         <item>&#8226; Cream (1 cup)</item>
         <item>&#8226; Milk (2 cups)</item>
     </string-array>
+    <string name="push_reminders">Push Reminders:</string>
+    <string name="weekly_objectives">Weekly Objectives:</string>
+    <string name="theme">Theme:</string>
+    <string name="developer_note_header">Developer\'s Note:</string>
+    <string name="developer_note">Thank you for using our app!</string>
+    <string name="confirm">Confirm</string>
+    <string name="reset">Reset</string>
+    <string name="edit">Edit</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="add_to_list">Add to List</string>
+    <string name="done_editing">Done Editing</string>
+    <string name="hat_lock_reset">Hat Lock Reset:</string>
+    <string name="objective1">Objective 1:</string>
+    <string name="objective2">Objective 2:</string>
+    <string name="objective3">Objective 3:</string>
+    <string name="objective4">Objective 4:</string>
+    <string name="my_shopping_list">My Shopping List</string>
+    <string name="new_recipe_title_header">Recipe Title (Required):</string>
+    <string name="new_recipe_link_header">Recipe Link (Optional):</string>
+    <string name="ingredients_header">INGREDIENTS:</string>
+    <string name="new_ingredient">New Ingredient</string>
+    <string name="cooking_notes">COOKING NOTES:</string>
+    <string name="new_item">New Item:</string>
+    <string name="quantity">Quantity:</string>
+    <string name="pick_hat">Pick Your Hat!</string>
+    <string name="top_hat">Top Hat</string>
+    <string name="pirate_hat">Pirate Hat</string>
+    <string name="jester_cap">Jester Cap</string>
+    <string name="tiara">Tiara</string>
+    <string name="bow">Bow</string>
+    <string name="nothing">Nothing</string>
 </resources>

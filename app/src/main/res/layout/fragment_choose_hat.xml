@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="80dp"
             android:layout_marginTop="24dp"
-            android:text="Pick your hat!"
+            android:text="@string/pick_hat"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintStart_toEndOf="@+id/Exit_Button"
             app:layout_constraintTop_toTopOf="parent" />
@@ -105,7 +105,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="84dp"
-            android:text="Top Hat"
+            android:text="@string/top_hat"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Top_Hat_Image" />
 
@@ -114,7 +114,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="76dp"
-            android:text="Pirate Hat"
+            android:text="@string/pirate_hat"
             app:layout_constraintStart_toEndOf="@+id/Top_Hat_Image"
             app:layout_constraintTop_toBottomOf="@+id/Pirate_Hat_Image" />
 
@@ -123,7 +123,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="76dp"
-            android:text="Jester Cap"
+            android:text="@string/jester_cap"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Jester_Cap_Image" />
 
@@ -132,7 +132,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="94dp"
-            android:text="Tiara"
+            android:text="@string/tiara"
             app:layout_constraintStart_toEndOf="@+id/Jester_Cap_Image"
             app:layout_constraintTop_toBottomOf="@+id/Tiara_Image" />
 
@@ -141,7 +141,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="88dp"
-            android:text="Bow"
+            android:text="@string/bow"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Bow_Image" />
 
@@ -150,7 +150,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="80dp"
-            android:text="Nothing"
+            android:text="@string/nothing"
             app:layout_constraintStart_toEndOf="@+id/Bow_Image"
             app:layout_constraintTop_toBottomOf="@+id/Nothing_Image" />
 

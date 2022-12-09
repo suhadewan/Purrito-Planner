@@ -30,7 +30,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
                 android:backgroundTint="#D1D1D1"
-                android:text="Cancel"
+                android:text="@string/cancel"
                 android:textAlignment="center"
                 android:textColor="#353535"
                 android:textSize="16sp"
@@ -44,7 +44,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
                 android:backgroundTint="#D1D1D1"
-                android:text="Save"
+                android:text="@string/save"
                 android:textAlignment="center"
                 android:textColor="#353535"
                 android:textSize="16sp"
@@ -69,9 +69,9 @@
                     android:id="@+id/recipe_title_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Recipe Title (Required):"
-                    android:textColor="@color/black"
+                    android:text="@string/new_recipe_title_header"
                     android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -86,9 +86,9 @@
                     android:id="@+id/recipe_link_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Recipe Link (Optional):"
-                    android:textColor="@color/black"
+                    android:text="@string/new_recipe_link_header"
                     android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -136,7 +136,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="     INGREDIENTS: "
+                android:text="@string/ingredients_header"
                 android:textAlignment="center"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -149,7 +149,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
                 android:backgroundTint="#E1E1E1"
-                android:text="New Ingredient"
+                android:text="@string/new_ingredient"
                 android:textAlignment="center"
                 android:textColor="#353535"
                 android:textSize="16sp"
@@ -172,7 +172,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:background="#D1D1D1"
-            android:text="COOKING NOTES"
+            android:text="@string/cooking_notes"
             android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold" />

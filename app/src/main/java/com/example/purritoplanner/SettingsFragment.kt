@@ -3,6 +3,7 @@ package com.example.purritoplanner
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,12 +24,11 @@ class SettingFragment : Fragment() {
     private lateinit var objective3ConfirmButton: Button
     private lateinit var objective4ConfirmButton: Button
     private lateinit var pushNotificationsSwitch: Switch
+    private lateinit var hatLockResetButton: Button
     private lateinit var theme: SwitchCompat
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
     }
 
     override fun onCreateView(
@@ -45,6 +45,7 @@ class SettingFragment : Fragment() {
         objective3ConfirmButton = view.findViewById(R.id.Confirm_Objective_3_Button)
         objective4ConfirmButton = view.findViewById(R.id.Confirm_Objective_4_Button)
         pushNotificationsSwitch = view.findViewById(R.id.Push_On_Off)
+        hatLockResetButton = view.findViewById(R.id.hat_lock_reset_button)
         theme = view.findViewById(R.id.themeSwitch)
 
         val preferenceAccess = requireActivity().getSharedPreferences("pref", Context.MODE_PRIVATE)
@@ -79,11 +80,23 @@ class SettingFragment : Fragment() {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             theme.isChecked = true
             theme.setText("Night Mode")
+            editPreferences.putBoolean("jesterLock", false)
+            editPreferences.commit()
+            Log.d("jesterLock", "Got Here")
         }
         else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             theme.isChecked = false
             theme.setText("Day Mode")
+        }
+        hatLockResetButton.setOnClickListener {
+            val preferenceAccess = requireActivity().getSharedPreferences("pref", Context.MODE_PRIVATE)
+            val editPreferences: SharedPreferences.Editor = preferenceAccess.edit()
+            editPreferences.putBoolean("pirateLock", true)
+            editPreferences.putBoolean("jesterLock", true)
+            editPreferences.putBoolean("tiaraLock", true)
+            editPreferences.putBoolean("bowLock", true)
+            editPreferences.commit()
         }
 
         theme.setOnCheckedChangeListener { _, checkedId ->

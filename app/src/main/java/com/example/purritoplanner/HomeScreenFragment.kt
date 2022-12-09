@@ -13,6 +13,7 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 
@@ -43,6 +44,7 @@ class HomeScreenFragment : Fragment() {
         objective3Checkbox = view.findViewById(R.id.Objective_3)
         objective4Checkbox = view.findViewById(R.id.Objective_4)
         progressBar = view.findViewById(R.id.Objective_Progress_Bar)
+        catPicture = view.findViewById(R.id.Cat_Image)
 
         hatButton.setOnClickListener {
             view.findNavController().navigate(R.id.chooseHatFragment)
@@ -50,6 +52,14 @@ class HomeScreenFragment : Fragment() {
 
         settingButton.setOnClickListener {
             view.findNavController().navigate(R.id.action_homeScreenFragment_to_settingsFragment)
+        }
+
+        catPicture.setOnClickListener {
+            val preferenceAccess = requireActivity().getSharedPreferences("pref", Context.MODE_PRIVATE)
+            val editPreferences: SharedPreferences.Editor = preferenceAccess.edit()
+            editPreferences.putBoolean("pirateLock", false)
+            editPreferences.commit()
+            //add cat noise
         }
 
         val preferenceAccess = requireActivity().getSharedPreferences("pref", Context.MODE_PRIVATE)
@@ -86,6 +96,9 @@ class HomeScreenFragment : Fragment() {
                 paintFlags = if (isChecked) (paintFlags or Paint.STRIKE_THRU_TEXT_FLAG) else (paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv())
             }
             view.findViewById<TextView>(R.id.Ccompletion_Level).text = (progressBar.progress.toString() + "% Completed")
+            if (progressBar.progress == 100) {
+                editPreferences.putBoolean("bowLock", false)
+            }
         }
         objective2Checkbox.setOnCheckedChangeListener { buttonView, isChecked ->
             progressBar.progress = progressBar.progress + (if (isChecked) 25 else -25)
@@ -96,6 +109,9 @@ class HomeScreenFragment : Fragment() {
                 paintFlags = if (isChecked) (paintFlags or Paint.STRIKE_THRU_TEXT_FLAG) else (paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv())
             }
             view.findViewById<TextView>(R.id.Ccompletion_Level).text = (progressBar.progress.toString() + "% Completed")
+            if (progressBar.progress == 100) {
+                editPreferences.putBoolean("bowLock", false)
+            }
         }
         objective3Checkbox.setOnCheckedChangeListener { buttonView, isChecked ->
             progressBar.progress = progressBar.progress + (if (isChecked) 25 else -25)
@@ -106,6 +122,9 @@ class HomeScreenFragment : Fragment() {
                 paintFlags = if (isChecked) (paintFlags or Paint.STRIKE_THRU_TEXT_FLAG) else (paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv())
             }
             view.findViewById<TextView>(R.id.Ccompletion_Level).text = (progressBar.progress.toString() + "% Completed")
+            if (progressBar.progress == 100) {
+                editPreferences.putBoolean("bowLock", false)
+            }
 
         }
         objective4Checkbox.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -117,17 +136,45 @@ class HomeScreenFragment : Fragment() {
                 paintFlags = if (isChecked) (paintFlags or Paint.STRIKE_THRU_TEXT_FLAG) else (paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv())
             }
             view.findViewById<TextView>(R.id.Ccompletion_Level).text = (progressBar.progress.toString() + "% Completed")
+            if (progressBar.progress == 100) {
+                editPreferences.putBoolean("bowLock", false)
+                editPreferences.commit()
+            }
         }
 
         val selectedHat = preferenceAccess.getString("selectedHat", "Nothing")
         val hatImage = view.findViewById<ImageView>(R.id.Hat_Image_Holder)
+        val originalHatX = hatImage.x
+        val originalHatY = hatImage.y
         when (selectedHat) {
-            "TopHat" -> hatImage.setBackgroundResource(R.drawable.top_hat_thumbnail)
-            "Nothing" -> hatImage.visibility = View.GONE
-            "PirateHat" -> hatImage.setBackgroundResource(R.drawable.pirate_hat_thumbnail)
-            "JesterCap" -> hatImage.setBackgroundResource(R.drawable.jester_hat_thumbnail)
-            "Tiara" -> hatImage.setBackgroundResource(R.drawable.tiara_origin_thumbnail)
-            "Bow" -> hatImage.setBackgroundResource(R.drawable.bow_thumbnail)
+            "TopHat" -> {
+                hatImage.setImageResource(R.drawable.top_hat_thumbnail)
+                hatImage.x = originalHatX
+                hatImage.y = originalHatY
+            }
+            "Nothing" -> {
+                hatImage.visibility = View.GONE
+            }
+            "PirateHat" -> {
+                hatImage.setImageResource(R.drawable.pirate_hat_thumbnail)
+                hatImage.x = originalHatX
+                hatImage.y = originalHatY + 70
+            }
+            "JesterCap" -> {
+                hatImage.setImageResource(R.drawable.jester_hat_thumbnail)
+                hatImage.x = originalHatX - 10
+                hatImage.y = originalHatY + 30
+            }
+            "Tiara" -> {
+                hatImage.setImageResource(R.drawable.tiara_origin_thumbnail)
+                hatImage.x = originalHatX
+                hatImage.y = originalHatY + 70
+            }
+            "Bow" -> {
+                hatImage.setImageResource(R.drawable.bow_thumbnail)
+                hatImage.x = originalHatX
+                hatImage.y = originalHatY + 95
+            }
         }
 
         val selectedTheme = preferenceAccess.getBoolean("nightMode", false)

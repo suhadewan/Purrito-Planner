@@ -26,7 +26,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
                 android:backgroundTint="#D1D1D1"
-                android:text="Cancel"
+                android:text="@string/cancel"
                 android:textAlignment="center"
                 android:textColor="#353535"
                 android:textSize="16sp"
@@ -40,7 +40,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
                 android:backgroundTint="#D1D1D1"
-                android:text="Save"
+                android:text="@string/save"
                 android:textAlignment="center"
                 android:textColor="#353535"
                 android:textSize="16sp"
@@ -60,7 +60,7 @@
                 android:id="@+id/new_item_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Item: "
+                android:text="@string/new_item"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -89,8 +89,8 @@
                 android:id="@+id/quantity_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/quantity"
                 android:textColor="@color/black"
-                android:text="Quantity: "
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
