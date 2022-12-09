@@ -75,10 +75,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:layout_marginStart="30dp"
+                android:layout_marginStart="160dp"
                 android:text="Eat at least 1 meal a day"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.264"
+                app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider" />
 
@@ -88,8 +88,8 @@
             android:layout_height="wrap_content"
             android:text="Try one new meal"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="30dp"
-            app:layout_constraintHorizontal_bias="0.244"
+            android:layout_marginStart="160dp"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Objective_1" />
 
@@ -99,8 +99,8 @@
             android:layout_height="wrap_content"
             android:text="Go grocery shopping"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="30dp"
-            app:layout_constraintHorizontal_bias="0.253"
+            android:layout_marginStart="160dp"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Objective_2" />
 
@@ -108,10 +108,10 @@
             android:id="@+id/Objective_4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="160dp"
             android:text="Pet cat"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.219"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Objective_3" />
 
