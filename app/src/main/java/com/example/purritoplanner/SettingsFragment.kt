@@ -73,16 +73,22 @@ class SettingFragment : Fragment() {
                 true -> {
                     //turn on push notifs
                     Log.d("test", "Turned on push notifications")
-                    val notify = Intent(requireContext(), PushReceiver::class.java)
-                    val pendingIntent = PendingIntent.getBroadcast(context, 0, notify, PendingIntent.FLAG_IMMUTABLE)
-                    val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+                    //This stuff would be used to make the notifications go off
+                    //At a certain time of day, but for demo purposes I've set them
+                    //to trigger more often instead.
                     val calendar: Calendar = Calendar.getInstance()
-                    calendar.setTimeInMillis(System.currentTimeMillis())
-                    calendar.set(Calendar.HOUR_OF_DAY, 2)
-                    calendar.set(Calendar.MINUTE, 50)
-                    calendar.set(Calendar.SECOND, 1)
-                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent)
-                    pushNotificationsSwitch.isChecked = true
+                    calendar.timeInMillis = System.currentTimeMillis()
+                    //calendar.set(Calendar.HOUR_OF_DAY, 5)
+                    //calendar.set(Calendar.MINUTE, 30)
+                    //calendar.set(Calendar.SECOND, 0)
+
+                    val dialogIntent = Intent(requireContext(), PushReceiver::class.java)
+                    val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                    val pendingIntent = PendingIntent.getBroadcast(requireContext(), 0, dialogIntent, PendingIntent.FLAG_IMMUTABLE)
+                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, 60000, pendingIntent)
+
+                    //pushNotificationsSwitch.isChecked = true
                     pushNotificationsSwitch.text="Turn off"
                     editPreferences.putBoolean("isPushNotif", true)
                     editPreferences.commit()
@@ -93,7 +99,7 @@ class SettingFragment : Fragment() {
                     val pendingIntent = PendingIntent.getBroadcast(context, 0, cancelNotify, PendingIntent.FLAG_IMMUTABLE)
                     val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
                     alarmManager.cancel(pendingIntent)
-                    pushNotificationsSwitch.isChecked = false
+                    //pushNotificationsSwitch.isChecked = false
                     pushNotificationsSwitch.text="Turn on"
                     editPreferences.putBoolean("isPushNotif", false)
                     editPreferences.commit()
