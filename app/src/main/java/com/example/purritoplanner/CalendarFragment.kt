@@ -45,13 +45,12 @@ class CalendarFragment : Fragment() {
                 val editT : EditText = createView.findViewById(R.id.editText)
                 val builder = context?.let { AlertDialog.Builder(it) }
                 builder?.setView(createView)
-                
+
                 builder?.setPositiveButton("Done"
                 ) { _, _ ->
                     val index = weekdayClicked()
                     val textString = editT.text.toString()
-                    if (editT.text.toString() == "" || index != 0 || index != 1 || index != 2
-                        || index != 3 || index != 4 || index != 5 || index != 6) {
+                    if (editT.text.toString() == "" || idx >= 6 || idx <0) {
                         Toast.makeText(
                             activity,
                             "You must enter a day and meal!",
@@ -72,8 +71,7 @@ class CalendarFragment : Fragment() {
                 }
                 builder?.setPositiveButton("Done"
                 ) { _, _ ->
-                    if (editT.text.toString() == "" || idx != 0 || idx != 1 || idx != 2
-                        || idx != 3 || idx != 4 || idx != 5 || idx != 6) {
+                    if (editT.text.toString() == "" || idx >= 6 || idx <0) {
                         Toast.makeText(
                             activity,
                             "You must enter a day and meal!",
@@ -265,8 +263,8 @@ class CalendarFragment : Fragment() {
                 )
             }
             list[num].listview_var.adapter = weekdayAdapter
-
         }
+
     }
 
 
