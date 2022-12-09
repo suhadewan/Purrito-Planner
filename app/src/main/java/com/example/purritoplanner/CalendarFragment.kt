@@ -79,6 +79,8 @@ class CalendarFragment : Fragment() {
                 m.listview_var.adapter = adapter
             }
         }
+
+
         createList(view)
         showText()
         return view
@@ -230,18 +232,18 @@ class CalendarFragment : Fragment() {
         }
     }
 
-    private fun update(day_num :Int, meal_text: String) {
-        Log.d("$day_num", meal_text)
+    private fun update(num :Int, text: String) {
+        Log.d("$num", text)
         if (idx != -1) {
-            list[day_num].meals.add(meal_text)
-            addMeal.add(meal_text)
+            list[num].meals.add(text)
+            addMeal.add(text)
             val weekdayAdapter = context?.let {
                 ArrayAdapter<String>(
                     it,
-                    R.layout.activity_listview, list[day_num].meals
+                    R.layout.activity_listview, list[num].meals
                 )
             }
-            list[day_num].listview_var.adapter = weekdayAdapter
+            list[num].listview_var.adapter = weekdayAdapter
 
         }
     }
