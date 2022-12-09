@@ -200,7 +200,9 @@ class HomeScreenFragment : Fragment() {
     }
 
     override fun onDestroy() {
-        soundPool.release()
+        if (this::soundPool.isInitialized) {
+            soundPool.release()
+        }
         super.onDestroy()
     }
 
