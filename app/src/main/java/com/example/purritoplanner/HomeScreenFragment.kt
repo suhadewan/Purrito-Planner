@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.Paint
+import android.media.AudioAttributes
+import android.media.SoundPool
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +22,7 @@ import androidx.navigation.findNavController
 
 class HomeScreenFragment : Fragment() {
     private lateinit var hatButton: ImageView
+    private lateinit var soundPool: SoundPool
     private lateinit var settingButton: ImageView
     private lateinit var catPicture: ImageView
     private lateinit var objective1Checkbox: CheckBox
@@ -27,6 +30,7 @@ class HomeScreenFragment : Fragment() {
     private lateinit var objective3Checkbox: CheckBox
     private lateinit var objective4Checkbox: CheckBox
     private lateinit var progressBar: ProgressBar
+    private var catSound: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +49,7 @@ class HomeScreenFragment : Fragment() {
         objective4Checkbox = view.findViewById(R.id.Objective_4)
         progressBar = view.findViewById(R.id.Objective_Progress_Bar)
         catPicture = view.findViewById(R.id.Cat_Image)
+        initSoundPool()
 
         hatButton.setOnClickListener {
             view.findNavController().navigate(R.id.chooseHatFragment)
@@ -59,6 +64,7 @@ class HomeScreenFragment : Fragment() {
             val editPreferences: SharedPreferences.Editor = preferenceAccess.edit()
             editPreferences.putBoolean("pirateLock", false)
             editPreferences.commit()
+            soundPool.play(catSound, 1f, 1f, 1, 0, 1f)
             //add cat noise
         }
 
@@ -184,6 +190,18 @@ class HomeScreenFragment : Fragment() {
         }
 
         return view
+    }
+
+    private fun initSoundPool() {
+        var audioAttributes: AudioAttributes = AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_MEDIA).setContentType(
+            AudioAttributes.CONTENT_TYPE_MUSIC).build()
+        soundPool = SoundPool.Builder().setMaxStreams(3).setAudioAttributes(audioAttributes).build()
+        catSound = soundPool.load(context, R.raw.cat_meow, 1)
+    }
+
+    override fun onDestroy() {
+        soundPool.release()
+        super.onDestroy()
     }
 
 }
