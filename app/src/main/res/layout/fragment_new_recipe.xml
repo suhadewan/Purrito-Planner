@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#EDEDED"
+        android:background="@color/backgroundLinear"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -29,10 +29,10 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:backgroundTint="#D1D1D1"
+                android:backgroundTint="@color/bgtint"
                 android:text="@string/cancel"
                 android:textAlignment="center"
-                android:textColor="#353535"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -43,10 +43,10 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:backgroundTint="#D1D1D1"
+                android:backgroundTint="@color/bgtint"
                 android:text="@string/save"
                 android:textAlignment="center"
-                android:textColor="#353535"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -150,10 +150,10 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:backgroundTint="#E1E1E1"
+                android:backgroundTint="@color/bgt"
                 android:text="@string/new_ingredient"
                 android:textAlignment="center"
-                android:textColor="#353535"
+                android:textColor="@color/txt"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -173,7 +173,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:background="#D1D1D1"
+            android:background="@color/bgtint"
             android:text="@string/cooking_notes"
             android:textAlignment="center"
             android:textSize="24sp"

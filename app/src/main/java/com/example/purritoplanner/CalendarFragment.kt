@@ -50,7 +50,7 @@ class CalendarFragment : Fragment() {
                 ) { _, _ ->
                     val index = weekdayClicked()
                     val textString = editT.text.toString()
-                    if (editT.text.toString() == "" || idx >= 6 || idx <0) {
+                    if (editT.text.toString() == "") {
                         Toast.makeText(
                             activity,
                             "You must enter a day and meal!",
