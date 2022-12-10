@@ -3,6 +3,7 @@ package com.example.purritoplanner
 import android.graphics.Paint
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -33,18 +34,20 @@ class EditShoppingListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        Log.d("Test", "on view created")
+
         //Sets up the ingredients recyclerview.
         val recyclerView = view.findViewById<RecyclerView>(R.id.editShoppingListRecycler)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
         shoppingList = ArrayList()
-        adapter.setGroceries(shoppingList as ArrayList<Shopping>)
+//        adapter.setGroceries(shoppingList as ArrayList<Shopping>)
         database = FirebaseDatabase.getInstance().reference
         populateShoppingList()
 
         view.findViewById<Button>(R.id.doneButton).setOnClickListener {
-            //it.findNavController().navigate(R.id.action_editShoppingListFragment_to_shoppingListFragment)
-            it.findNavController().navigateUp()
+            it.findNavController().navigate(R.id.action_editShoppingListFragment_to_shoppingListFragment)
+            //it.findNavController().navigateUp()
         }
         view.findViewById<ImageView>(R.id.editShop_Settings_Button).setOnClickListener {
             it.findNavController().navigate(R.id.action_editShoppingListFragment_to_settingsFragment)
@@ -58,6 +61,9 @@ class EditShoppingListFragment : Fragment() {
                     val groceryItem: Shopping? = snapshot.getValue(Shopping::class.java)
                     shoppingList.add(groceryItem!!)
                 }
+                shoppingList = shoppingList.filter { it -> it.name != ""
+                } as MutableList<Shopping>
+                Log.d("Test", shoppingList.toString())
                 adapter.setGroceries(shoppingList as ArrayList<Shopping>)
             }
 
@@ -70,7 +76,7 @@ class EditShoppingListFragment : Fragment() {
         private var groceries = mutableListOf<Shopping>()
 
         fun removeElement(pos: Int): Shopping {
-            var shoppingItem: Shopping = groceries.get(pos)
+            var shoppingItem: Shopping = groceries[pos]
             groceries.removeAt(pos)
             adapter.notifyItemRemoved(pos)
             return shoppingItem
@@ -112,16 +118,20 @@ class EditShoppingListFragment : Fragment() {
                     paintFlags = if (isChecked) (paintFlags or Paint.STRIKE_THRU_TEXT_FLAG) else (paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv())
                 }
                 if (isChecked) {
-                    database.child("Grocery List").child(item.name).child("purchased").setValue(true)
+                    if (item.name != "") database.child("Grocery List").child(item.name).child("purchased").setValue(true)
                 }
                 else {
-                    database.child("Grocery List").child(item.name).child("purchased").setValue(false)
+                    if (item.name != "") database.child("Grocery List").child(item.name).child("purchased").setValue(false)
                 }
             }
             deleteIcon.setOnClickListener {
                 var deletedShoppingItem = removeElement(position)
-                var firebasePostRef = database.child("Grocery List").child(deletedShoppingItem.name)
-                firebasePostRef.removeValue()
+                if (deletedShoppingItem.name != "") {
+                    var firebasePostRef = database.child("Grocery List").child(deletedShoppingItem.name)
+                    firebasePostRef.removeValue().addOnSuccessListener {
+                        notifyDataSetChanged()
+                    }
+                }
             }
 
         }

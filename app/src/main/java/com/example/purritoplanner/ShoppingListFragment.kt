@@ -69,6 +69,8 @@ class ShoppingListFragment : Fragment() {
                     val groceryItem: Shopping? = snapshot.getValue(Shopping::class.java)
                     shoppingList.add(groceryItem!!)
                 }
+                shoppingList = shoppingList.filter { it -> it.name != ""
+                } as MutableList<Shopping>
                 adapter.setGroceries(shoppingList as ArrayList<Shopping>)
             }
 
