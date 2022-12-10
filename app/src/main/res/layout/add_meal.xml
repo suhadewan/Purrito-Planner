@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:text="@string/add_button_title"
         android:textSize="25sp"
-        android:textColor="#000000"/>
+        android:textColor="@color/black"/>
 
     <RadioGroup
         android:id="@+id/radioButtons"

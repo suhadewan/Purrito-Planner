@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#EDEDED"
+        android:background="@color/backgroundLinear"
         android:descendantFocusability="blocksDescendants"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -27,10 +27,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:backgroundTint="#D1D1D1"
+                android:backgroundTint="@color/bgtint"
                 android:text="@string/edit"
                 android:textAlignment="center"
-                android:textColor="#353535"
+                android:textColor="@color/txt"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -40,10 +40,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:backgroundTint="#D1D1D1"
+                android:backgroundTint="@color/bgtint"
                 android:text="@string/add_to_list"
                 android:textAlignment="center"
-                android:textColor="#353535"
+                android:textColor="@color/txt"
                 android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -92,7 +92,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/recipe_link_text"
                     android:textAlignment="center"
-                    android:textColorLink="#729CE1"
+                    android:textColorLink="@color/link"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -114,7 +114,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:background="#D1D1D1"
+            android:background="@color/bgtint"
             android:text="@string/ingredients_header"
             android:textAlignment="center"
             android:textSize="24sp"
@@ -134,7 +134,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:background="#D1D1D1"
+            android:background="@color/bgtint"
             android:text="@string/cooking_notes"
             android:textAlignment="center"
             android:textSize="24sp"

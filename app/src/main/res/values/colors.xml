@@ -10,5 +10,13 @@
     <color name="grey">#808080</color>
     <color name="teal">#0CAE84</color>
     <color name="darkgreen">#0A8767</color>
+    <color name="bgtint">#D1D1D1</color>
+    <color name="backgroundLinear">#EDEDED</color>
+    <color name="txt">#353535</color>
+    <color name="bgt">#E1E1E1</color>
+    <color name="link">#729CE1</color>
+
+
+
 
 </resources>
